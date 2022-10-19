@@ -6,17 +6,12 @@ class Solution {
             map.put(word,map.getOrDefault(word,0)+1);
         }
         //Priority Queue with custom comperator using lembda exp:
-        PriorityQueue<Map.Entry<String, Integer>> pq = new PriorityQueue<>(
-        (a,b)-> a.getValue()==b.getValue()?b.getKey().compareTo(a.getKey()):a.getValue()-b.getValue());
+        Queue<Map.Entry<String, Integer>> pq = new PriorityQueue<>(
+        (a,b)-> a.getValue()==b.getValue()? a.getKey().compareTo(b.getKey()):b.getValue()-a.getValue());
         
-        for(Map.Entry<String,Integer> entry :map.entrySet()){
-            pq.offer(entry);
-            if(pq.size()>k){
-                pq.poll();
-            }
-        }
-        while(!pq.isEmpty()){
-            res.add(0,pq.poll().getKey());
+        pq.addAll(map.entrySet());
+        while(k-->0){
+            res.add(pq.poll().getKey());
         }
         return res;
     }
