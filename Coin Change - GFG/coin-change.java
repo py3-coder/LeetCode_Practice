@@ -31,11 +31,11 @@ class Solution {
         //return count_R(coins,N-1,sum);
         
         // Memoization Driver Code :
-        long dp[][] = new long[N+1][sum+1];
-        Arrays.stream(dp).forEach(a->Arrays.fill(a,-1));
-        return count_Memo(coins,N-1,sum,dp);
+        //long dp[][] = new long[N+1][sum+1];
+        //Arrays.stream(dp).forEach(a->Arrays.fill(a,-1));
+        //return count_Memo(coins,N-1,sum,dp);
         
-        //return count_Tab(coins,sum);
+        return count_Tab(coins,sum);
     }
     // Similar to Unbounded knapsack think of --> Count of Subset sum problem just do some modification
     // you will enjoy it..
@@ -63,13 +63,14 @@ class Solution {
             return dp[n][sum]= count_Memo(coins,n-1,sum,dp) + count_Memo(coins,n,sum-coins[n],dp);
         }
     }
-    // Tabu 
+    // Tabulation
     public long count_Tab(int coins[],int sum){
-        long dp[][] = new long[coins.length+1][sum];
-        for(int i=0;i<coins.length+1;i++){
+        int n=coins.length;
+        long dp[][] = new long[n+1][sum+1];
+        for(int i=0;i<n+1;i++){
             dp[i][0] =1;
         }
-        for(int i=1;i<coins.length+1;i++){
+        for(int i=1;i<n+1;i++){
             for(int j=1;j<sum+1;j++){
              if(coins[i-1]>j){
                 dp[i][j] = dp[i-1][j];
@@ -78,6 +79,6 @@ class Solution {
                 }
             }
         }
-        return dp[coins.length][sum];
+        return dp[n][sum];
     }
 }
