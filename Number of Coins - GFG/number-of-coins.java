@@ -29,14 +29,17 @@ class Solution{
 	public int minCoins(int coins[], int M, int V) 
 	{ 
 	    // Recursion driver
-	    //return (minCoin_R(coins,V)==Integer.MAX_VALUE)?-1:min_coin_Memo(coins,V);
+	    //int ans =minCoin_R(coins,V);
+	    //return (ans==Integer.MAX_VALUE)?-1:ans;
 	    
 	    //memo driver
-	    int dp[] = new int[V+1];
-	    Arrays.fill(dp,-1);
-	    int ans =min_coin_Memo(coins,V,dp);
-	    return (ans==Integer.MAX_VALUE)?-1:ans;
+	    //int dp[] = new int[V+1];
+	    //Arrays.fill(dp,-1);
+	    //int ans =min_coin_Memo(coins,V,dp);
+	    //return (ans==Integer.MAX_VALUE)?-1:ans;
 	    
+        // Tabu driver	  
+	    return  min_coin_tabu(coins,V);
 	} 
 	// Recursive Approch:
 	public int minCoin_R(int coins[],int sum){
@@ -73,5 +76,32 @@ class Solution{
 	    }
 	    return dp[sum]=res;
 	}
-	
+	//Tabulation 
+	public int min_coin_tabu(int coins[],int sum){
+	    int dp[][] = new int[coins.length+1][sum+1];
+	    dp[0][0] =0;
+	    for(int i=1;i<sum+1;i++){
+	        dp[0][i] = Integer.MAX_VALUE-1;
+	    }
+	    for(int i=1;i<coins.length+1;i++){
+	        dp[i][0] =0;
+	    }
+	    for(int i=1;i<sum+1;i++){
+	        if(i%coins[0]==0){
+	            dp[1][i] = i/coins[0];
+	        }else{
+	            dp[1][i] =Integer.MAX_VALUE-1;
+	        }
+	    }
+	    for(int i=2;i<coins.length+1;i++){
+	        for(int j=1;j<sum+1;j++){
+	            if(coins[i-1]>j){
+	                dp[i][j] =dp[i-1][j];
+	            }else{
+	                dp[i][j] =Math.min(dp[i-1][j] ,1+dp[i][j-coins[i-1]]);
+	            }
+	        }
+	    }
+	    return (dp[coins.length][sum]==Integer.MAX_VALUE-1)?-1:dp[coins.length][sum];
+	}
 }
