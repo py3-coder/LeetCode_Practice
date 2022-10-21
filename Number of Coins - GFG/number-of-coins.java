@@ -76,8 +76,8 @@ class Solution{
 	    }
 	    return dp[sum]=res;
 	}
-	//Tabulation 
-	public int min_coin_tabu(int coins[],int sum){
+	//Tabulation :1
+	public int min_coin_tabu1(int coins[],int sum){
 	    int dp[][] = new int[coins.length+1][sum+1];
 	    dp[0][0] =0;
 	    for(int i=1;i<sum+1;i++){
@@ -103,5 +103,40 @@ class Solution{
 	        }
 	    }
 	    return (dp[coins.length][sum]==Integer.MAX_VALUE-1)?-1:dp[coins.length][sum];
+	}
+	//Tabulation :2
+	public int min_coin_tabu2(int coins[],int sum){
+	    int dp[][] = new int[coins.length+1][sum+1];
+	    dp[0][0] =0;
+	    for(int i=1;i<sum+1;i++){
+	        dp[0][i] = Integer.MAX_VALUE-1;
+	    }
+	    for(int i=1;i<coins.length+1;i++){
+	        dp[i][0] =0;
+	    }
+	    for(int i=1;i<coins.length+1;i++){
+	        for(int j=1;j<sum+1;j++){
+	            if(coins[i-1]>j){
+	                dp[i][j] =dp[i-1][j];
+	            }else{
+	                dp[i][j] =Math.min(dp[i-1][j] ,1+dp[i][j-coins[i-1]]);
+	            }
+	        }
+	    }
+	    return (dp[coins.length][sum]==Integer.MAX_VALUE-1)?-1:dp[coins.length][sum];
+	}
+	//Tabulation :3
+	public int min_coin_tabu3(int coins[] ,int sum){
+	    int dp[] = new int[sum+1];
+	    Arrays.fill(dp,Integer.MAX_VALUE);
+	    dp[0] =0;
+	    for(int i=1;i<sum+1;i++){
+	        for(int j=0;j<coins.length;j++){
+	            if(i-coins[j]>=0 && dp[i-coins[j]]!=Integer.MAX_VALUE){
+	                dp[i] =Math.min(dp[i-coins[j]]+1,dp[i]);
+	            }
+	        }
+	    }
+	    return dp[sum]==Integer.MAX_VALUE?-1:dp[sum];
 	}
 }
