@@ -32,6 +32,7 @@ class Solution {
         return false;
     } 
     /*
+    //Same with little change :
      public boolean checkSubarraySum(int[] nums, int k){
          HashMap<Integer,Integer> map = new HashMap<>();
          map.put(0,-1); // Reason : might 1st ele if array%k==0 so we should return false..(len condition)
