@@ -13,7 +13,7 @@ class Solution {
         return false;
     }
     */
-    /*
+
     public boolean checkSubarraySum(int[] nums, int k) {
         HashMap<Integer,Integer> map = new HashMap<>();
         int sum =0;
@@ -27,13 +27,11 @@ class Solution {
             if(map.containsKey(sum) && i-map.get(sum)>1) return true;
             
             //Case if map does not contains sum add in map with its index;
-            if(!map.containsKey(sum)){
-                map.put(sum,i);
-            }
+            map.putIfAbsent(sum,i);
         }
         return false;
     } 
-    */
+    /*
      public boolean checkSubarraySum(int[] nums, int k){
          HashMap<Integer,Integer> map = new HashMap<>();
          map.put(0,-1); // Reason : might 1st ele if array%k==0 so we should return false..(len condition)
@@ -47,4 +45,5 @@ class Solution {
          }
          return false;
      }
+     */
 }
