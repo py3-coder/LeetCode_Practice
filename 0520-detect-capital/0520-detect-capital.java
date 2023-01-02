@@ -1,5 +1,8 @@
 class Solution {
     public boolean detectCapitalUse(String word) {
-        return word.matches("[A-Z]+|[a-z]+|[A-Z][a-z]+");
+        if (word.length() < 2) return true;
+        if (word.toUpperCase().equals(word)) return true;
+        if (word.substring(1).toLowerCase().equals(word.substring(1))) return true;
+        return false;
     }
 }
