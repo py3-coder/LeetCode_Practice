@@ -14,17 +14,24 @@
  * }
  */
 class Solution {
-    public List<Integer>  pre(TreeNode root,List<Integer> res){
-        if(root==null) return res;
+    //Recurisive Soln:
+    //PreOrder - Root Left Right...
+    public List<Integer> solveR(TreeNode root,List<Integer> res){
+        if(root ==null)  return res; //Base Case
+        // Add root to list
         res.add(root.val);
-        pre(root.left,res);
-        pre(root.right,res); 
+        // Left Recursive call
+        solveR(root.left,res);
+        //Right Recursive call
+        solveR(root.right,res);
         
+        //retturn list after all call finished
         return res;
     }
+    
     public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
-        return pre(root, res);
+        return solveR(root, res);
         
     }
 }
