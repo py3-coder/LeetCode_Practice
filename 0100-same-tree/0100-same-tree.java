@@ -18,6 +18,22 @@ class Solution {
         if(p==null && q==null) return true;
         if(p==null || q==null) return false;
         if(p.val != q.val) return false;
-        return isSameTree(p.left,q.left) && isSameTree(p.right ,q.right);
+        Queue<TreeNode> que = new LinkedList<>();
+        if(p!=null && q!=null){
+            que.offer(p);
+            que.offer(q);
+        }
+        while(!que.isEmpty()){
+            TreeNode first = que.poll();
+            TreeNode sec =que.poll();
+            if(first==null && sec ==null) continue;
+            if(first==null || sec==null) return false;
+            if(first.val !=sec.val) return false;
+            que.offer(first.left);
+            que.offer(sec.left);
+            que.offer(first.right);
+            que.offer(sec.right);
+        }
+        return true;
     }
 }
