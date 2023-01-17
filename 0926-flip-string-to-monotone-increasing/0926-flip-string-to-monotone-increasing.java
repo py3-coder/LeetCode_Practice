@@ -1,11 +1,16 @@
 class Solution {
     public int minFlipsMonoIncr(String s) {
-        int ans =0;
-        int counter =0;
+        // countflip , countOne ==0
+        int countflip =0;
+        int countOne=0;
+        
+        //iterate over loop
         for(int i=0;i<s.length();i++){
-            if(s.charAt(i)=='0') ans = Math.min(counter , ans+1);
-            else counter++;
+            if(s.charAt(i)=='0') countflip = Math.min(countflip+1,countOne);
+            else{
+                countOne+=1;
+            }
         }
-        return ans;
+        return countflip;
     }
 }
