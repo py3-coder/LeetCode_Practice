@@ -14,7 +14,8 @@
  * }
  */
 class Solution {
-    public int inorder(TreeNode root,List<Integer> res,int k){
+    public int inorder(TreeNode root,int k){
+        int count=0,ans=0;
         Stack<TreeNode> st = new Stack<>();
         while(!st.isEmpty()|| root!=null){
             while(root!=null){
@@ -22,15 +23,18 @@ class Solution {
                 root =root.left;
             }
             root =st.pop();
-            res.add(root.val);
+            count++;
+            if(count==k){
+                ans=root.val;
+            }
+            //res.add(root.val)
             root =root.right;
         }
-        System.out.println(res);
-        return  res.get(k-1);
+        return ans;
     }
     public int kthSmallest(TreeNode root, int k) {
-        List<Integer> res =new ArrayList<>();
-        int ans = inorder(root,res,k);
+        //List<Integer> res =new ArrayList<>();
+        int ans = inorder(root,k);
         return ans;
     }
 }
