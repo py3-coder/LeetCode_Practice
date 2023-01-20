@@ -14,6 +14,12 @@
  * }
  */
 class Solution {
+    /*
+    Think of range kind of think evey node have some range in BST
+    for root node it must lies btwn [-Int.Min , +Int.Max]
+    similary as we got to left the uperbound is bounded by root
+    and as we go to right the lower bound is get bounded by root.
+    */
     public TreeNode bst_Pre(int[] pre ,int Ubound,int[] i){
         if(i[0]==pre.length || pre[i[0]]>Ubound) return null;
         TreeNode root  = new TreeNode(pre[i[0]++]);
