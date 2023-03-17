@@ -18,11 +18,12 @@ class Solution {
         }
         return res;
     }
-    public static boolean isPossible(int[] arr , long k,long mid){
+    public static boolean isPossible(int[] arr , long k,int mid){
         long count =0;
         for(int i=0;i<arr.length;i++){
-            if(arr[i]>=mid)
+            if(arr[i]>=mid){
                 count +=arr[i]/mid;
+            }
         }
         return count>=k;
     }
