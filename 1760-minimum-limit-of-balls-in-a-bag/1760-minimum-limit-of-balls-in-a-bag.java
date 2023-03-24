@@ -21,6 +21,23 @@ class Solution {
     public static boolean isPossible(int[] arr,int mid ,int maxi){
         int count =0;
         for(int val : arr){
+            ///Total number of operation 
+            /*
+            for example :-  A[i] = 15 and mid = 4
+            operations needed is (15-1)/4 =  3;
+            i.e. we can divide 15 as 4,4,4,3 
+		  
+                     15
+                     /\
+                    /  \
+                    8   7      ----> 1 operation 
+                   /\   /\
+                  /  \ /  \
+                 4   4 4   3   ----> 2 operation
+                  
+                               Total 3 oeprations
+            
+            */
             count += (val-1)/mid;
         }
         return count<=maxi;
