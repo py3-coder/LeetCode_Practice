@@ -1,6 +1,8 @@
 class Solution {
     public int minSpeedOnTime(int[] dist, double hour) {
         int res =Integer.MAX_VALUE;
+        // Minimum Possible Value ~ 1
+        //Maximun will be 10^7
         int start = 1;
         int end = 10000000;
         while(start<=end){
