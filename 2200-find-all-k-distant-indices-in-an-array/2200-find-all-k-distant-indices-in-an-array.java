@@ -8,13 +8,13 @@ class Solution {
                 keylist.add(i);
             }
         }
-        int last =0;
-        for(int ele:keylist){
-            int i= Math.max(last,ele-k);
-            for(;i<=ele+k && i<nums.length;i++){
-                res.add(i);
+        for(int j=0;j<nums.length;j++){
+            for(int ele:keylist){
+                if(Math.abs(j-ele)<=k){
+                    res.add(j);
+                    break;
+                }
             }
-            last=i;
         }
         return res;
         
