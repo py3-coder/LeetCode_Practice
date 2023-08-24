@@ -1,7 +1,7 @@
 class Solution {
     public List<Integer> findKDistantIndices(int[] nums, int key, int k) {
         List<Integer> res = new ArrayList<>();
-        SortedSet<Integer> ts= new TreeSet<Integer>();
+        Set<Integer> ts= new TreeSet<Integer>();
         List<Integer> keylist = new ArrayList<>();
         
         for(int i=0;i<nums.length;i++){
