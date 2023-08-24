@@ -1,7 +1,6 @@
 class Solution {
     public List<Integer> findKDistantIndices(int[] nums, int key, int k) {
         List<Integer> res = new ArrayList<>();
-        Set<Integer> ts= new TreeSet<Integer>();
         List<Integer> keylist = new ArrayList<>();
         
         for(int i=0;i<nums.length;i++){
@@ -9,15 +8,13 @@ class Solution {
                 keylist.add(i);
             }
         }
-        for(int j=0;j<nums.length;j++){
-            for(int ele:keylist){
-                if(Math.abs(j-ele)<=k){
-                    ts.add(j);
-                }
+        int last =0;
+        for(int ele:keylist){
+            int i= Math.max(last,ele-k);
+            for(;i<=ele+k && i<nums.length;i++){
+                res.add(i);
             }
-        }
-        for(int val:ts){
-            res.add(val);
+            last=i;
         }
         return res;
         
