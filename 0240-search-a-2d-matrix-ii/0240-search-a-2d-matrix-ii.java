@@ -1,25 +1,14 @@
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
-        // Algo 
-        for(int arr[]:matrix){
-            if(binarysearch(arr,target)==true){
+        int i=0;
+        int j=matrix[0].length-1;
+        while(i>=0 && i<matrix.length && j>=0 && j<matrix[0].length){
+            if(matrix[i][j]==target){
                 return true;
-            }
-        }
-        return false;
-    }
-    
-    public boolean binarysearch(int[] arr , int target){
-        int start=0;
-        int end =arr.length-1;
-        while(start<=end){
-            int mid = start+(end-start)/2;
-            if(arr[mid]==target){
-                return true;
-            }if(arr[mid]<target){
-                start=mid+1;
-            }else{
-                end =mid-1;
+            }else if(matrix[i][j]>target){
+                j--;
+            }else if(matrix[i][j]<target){
+                i++;
             }
         }
         return false;
