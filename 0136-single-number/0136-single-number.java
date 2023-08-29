@@ -1,14 +1,11 @@
 class Solution {
     public int singleNumber(int[] nums) {
-        HashMap<Integer,Integer> mp = new HashMap<>();
-        for(int val:nums){
-            mp.put(val,mp.getOrDefault(val,0)+1);
+        Arrays.sort(nums);
+        for(int i=1;i<nums.length;i+=2){
+            if(nums[i]!=nums[i-1]){
+                return nums[i-1];
+            }
         }
-        for(int value:mp.keySet()){
-            if(mp.get(value)==1){
-                 return value;
-            }   
-        }
-    return 0;
+        return nums[nums.length-1];
     }
 }
