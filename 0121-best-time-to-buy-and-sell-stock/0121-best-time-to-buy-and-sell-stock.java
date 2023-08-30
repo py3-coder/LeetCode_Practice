@@ -1,7 +1,7 @@
 class Solution {
     public int maxProfit(int[] prices) {   
         // Broute Force 
-        // int n = prices.length;
+        int n = prices.length;
         // int profit=Integer.MIN_VALUE;
         // if(n==1){
         //     return 0;
@@ -15,13 +15,22 @@ class Solution {
         // TLE-AYA 
         
         // Lets Optimise
-        int curr_max=0;
-        int max_so_far=0;
-        for(int i=1;i<prices.length;i++){
-            curr_max +=prices[i]-prices[i-1];
-            curr_max =Math.max(0,curr_max);
-            max_so_far =Math.max(max_so_far,curr_max);
+        // int curr_max=0;
+        // int max_so_far=0;
+        // for(int i=1;i<prices.length;i++){
+        //     curr_max +=prices[i]-prices[i-1];
+        //     curr_max =Math.max(0,curr_max);
+        //     max_so_far =Math.max(max_so_far,curr_max);
+        // }
+        // return max_so_far;
+        
+        //Lets do it more simple way
+        int mini=Integer.MAX_VALUE;
+        int max=0;
+        for(int i=0;i<n;i++){
+            mini =Math.min(mini,prices[i]);
+            max=Math.max(max,prices[i]-mini);
         }
-        return max_so_far;
+        return max;
     }
 }
