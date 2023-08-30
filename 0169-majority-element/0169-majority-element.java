@@ -1,14 +1,18 @@
 class Solution {
     public int majorityElement(int[] nums) {
-        HashMap<Integer,Integer> map  = new HashMap<>();
-        for(int val :nums){
-            map.put(val,map.getOrDefault(val,0)+1);
-        }
-        for(Map.Entry<Integer,Integer> entry :map.entrySet()){
-            if(entry.getValue()>(nums.length/2)){
-                return entry.getKey();
+        //Moore's Voting Algo..
+        int ele=0;
+        int count=0;
+        for(int i=0;i<nums.length;i++){
+            if(count==0){
+                count=1;
+                ele=nums[i];
+            }else if(nums[i]==ele) count++;
+            else{
+                count--;
             }
         }
-        return 0;
+        return ele;  
+        //he majority element always exists in the array. No need to check..
     }
 }
