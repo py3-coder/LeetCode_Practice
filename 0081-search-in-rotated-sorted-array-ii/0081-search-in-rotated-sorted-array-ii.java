@@ -3,28 +3,41 @@ class Solution {
         return binary_search(nums,target);
     }
     
-    public static boolean binary_search(int[] arr,int target){
-        int start=0;
-        int end = arr.length-1;
-        while(start<=end){
-            int mid = start +(end- start)/2;
-            if(target==arr[mid]){
-                return true;
+    public static boolean binary_search(int[] arr,int k){
+         int n = arr.length; // size of the array.
+        int low = 0, high = n - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            //if mid points the target
+            if (arr[mid] == k) return true;
+
+            //Edge case:
+            if (arr[low] == arr[mid] && arr[mid] == arr[high]) {
+                low = low + 1;
+                high = high - 1;
+                continue;
             }
-            if(arr[mid]>arr[start]){
-                // means left side is sorted and lets check the target in left side..
-                if (target < arr[mid] && target >= arr[start]) end = mid;
-                else start = mid + 1;
-            } else if (arr[mid] < arr[start]) { 
-                // right side  [mid..end] is sorted
-                // check if target in right half
-                if (target > arr[mid] && target < arr[start]) start = mid + 1;
-                else end = mid;
-            }else {  
-                // have no idea about the array, but we can exclude arr[start] 
-                start++;
+
+            //if left part is sorted:
+            if (arr[low] <= arr[mid]) {
+                if (arr[low] <= k && k <= arr[mid]) {
+                    //element exists:
+                    high = mid - 1;
+                } else {
+                    //element does not exist:
+                    low = mid + 1;
+                }
+            } else { //if right part is sorted:
+                if (arr[mid] <= k && k <= arr[high]) {
+                    //element exists:
+                    low = mid + 1;
+                } else {
+                    //element does not exist:
+                    high = mid - 1;
+                }
             }
         }
-    return false;
+        return false;
     }
 }
