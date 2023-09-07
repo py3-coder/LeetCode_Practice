@@ -1,50 +1,20 @@
 class Solution {
-    public static List<List<Integer>> twosum(int[] arr , int start , int end, int targ){
-        List<List<Integer>> subres =new ArrayList<>();
-        int left  = start ;
-        int right = end ;
-        while(left<right){
-            int sum = arr[left]+arr[right];
-            if(left!=start && arr[left] == arr[left-1]) {
-               left++;
-                continue;
-            }
-            if(sum == targ){
-                List<Integer> lis = new ArrayList<>();
-                lis.add(arr[left]);
-                lis.add(arr[right]);
-                subres.add(lis);
-                left++;
-                right--;
-            }else if(sum<targ){
-                left++;
-            }else{
-                right--;
+    public List<List<Integer>> threeSum(int[] arr) {
+        int n=arr.length;
+         Set<List<Integer>> set =new HashSet<>();
+        for(int i=0;i<n;i++){
+            HashSet<Integer> hs = new HashSet<>();
+            for(int j=i+1;j<n;j++){
+                int target = -(arr[i]+arr[j]);
+                if(hs.contains(target)){
+                    List<Integer> temp = Arrays.asList(arr[i], arr[j], target);
+                        temp.sort(null);
+                        set.add(temp);
+                }
+                hs.add(arr[j]);
             }
         }
-        return subres;
-    }
-    
-    public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
-        int n= nums.length;
-        if(n<3){
-            return res;
-        }
-        Arrays.sort(nums);
-        for(int i=0;i<n-2;i++){
-            if(i!=0 && nums[i] == nums[i-1]){ 
-                continue;
-            }
-            int val1 = nums[i];
-            int targ = 0-val1;
-            List<List<Integer>> subres = twosum(nums,i+1,n-1,targ);
-            
-            for (List<Integer> list : subres){
-                list.add(0,val1);
-                res.add(list);
-            }
-        }
-        return res;
+       List<List<Integer>> res = new ArrayList<>(set);
+       return res;
     }
 }
