@@ -1,25 +1,44 @@
 class Solution {
     public double findMedianSortedArrays(int[] a, int[] b) {
-        int n=a.length;
-        int m=b.length;
-        int arr[] = new int[n+m];
-        int j=0;
-        for(int k=0;k<n;k++){
-            arr[j]=a[k];
+        int n1 =a.length;
+        int n2=b.length;
+        int n=n1+n2;
+        int indx2=n/2;
+        int indx1=indx2-1;
+        int ele1=-1;
+        int ele2=-1;
+        int cnt=0;
+        int i=0,j=0;
+
+        while(i<n1 && j<n2){
+            if(a[i]<b[j]){
+                if(cnt==indx1) ele1=a[i];
+                if(cnt==indx2) ele2=a[i];
+                cnt++;
+                i++;
+            }else{
+                if(cnt==indx1) ele1=b[j];
+                if(cnt==indx2) ele2=b[j];
+                cnt++;
+                j++;
+            }
+        }
+        while(i<n1){
+            if(cnt==indx1) ele1=a[i];
+            if(cnt==indx2) ele2=a[i];
+            cnt++;
+            i++;
+        }
+        while(j<n2){
+            if(cnt==indx1) ele1=b[j];
+            if(cnt==indx2) ele2=b[j];
+            cnt++;
             j++;
         }
-        for(int k=0;k<m;k++){
-            arr[j++]=b[k];
+        
+        if (n % 2 == 1) {
+            return (double)ele2;
         }
-        Arrays.sort(arr);
-        double median =0;
-        if((arr.length)%2!=0){
-            median=arr[arr.length/2];
-        }else{
-            int indx=arr.length/2;
-            int sum=arr[indx]+arr[indx-1];
-            median=(double)sum/2;
-        }
-        return (double)median;
+        return (double)((double)(ele1 + ele2)) / 2.0;
     }
 }
