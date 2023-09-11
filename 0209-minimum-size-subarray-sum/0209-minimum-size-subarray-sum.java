@@ -5,10 +5,8 @@ class Solution {
         int sum=0;
         int end=0,start=0;
         while(end<n){
-            if(sum<target){
-                sum+=arr[end];
-                end++;
-            }
+            sum+=arr[end];
+            end++;
             while(sum>=target){
                 mini =Math.min(end-start,mini);
                 sum-=arr[start];
