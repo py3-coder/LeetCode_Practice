@@ -19,9 +19,9 @@ class Solution {
                 while((end-start+1)-mostFrequentCharacter>k){
                     char ss = s.charAt(start);
                     map.put(ss,map.get(ss)-1);
-                    // if(map.get(ss)==0){
-                    //      map.remove(ss);
-                    // }
+                    if(map.get(ss)==0){
+                         map.remove(ss);
+                    }
                     start++;
                 }
                 end++;
