@@ -1,17 +1,24 @@
 class Solution {
     public int numberOfSubarrays(int[] nums, int k) {
-        int count=0,start=0,odd=0;
+        //
+        return solve(nums,k)-solve(nums,k-1);
+    }
+    public static int solve(int[] arr,int k){
+        int n=arr.length;
+        int count=0,start=0,sum=0,end=0;
         int res=0;
-        for(int end=0;end<nums.length;end++){
-            if(nums[end]%2!=0) {
-                odd++;
-                count=0;
+        while(end<n){
+            if(arr[end]%2!=0){
+                sum+=1;
             }
-            while(odd==k){
-                if(nums[start++]%2!=0) odd--;
-                count++;
+            while(sum>k){
+                if(arr[start]%2==1){
+                    sum-=1;
+                }
+                start++;
             }
-            res+=count;
+            res+=end-start+1;
+            end++;
         }
         return res;
     }
