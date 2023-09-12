@@ -23,6 +23,7 @@ class Solution {
 				end++;
 			}
 		}
+        // Special Case :: [0,0,1,1,1,0,0] k=0
         if(res==0 && k==0){
             return 0;
         }
