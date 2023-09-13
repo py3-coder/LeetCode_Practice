@@ -1,46 +1,53 @@
-public class Solution {
-public String minWindow(String s, String t) {
-    if(s == null || s.length() < t.length() || s.length() == 0){
-        return "";
-    }
-    HashMap<Character,Integer> map = new HashMap<Character,Integer>();
-    for(char c : t.toCharArray()){
-        if(map.containsKey(c)){
-            map.put(c,map.get(c)+1);
-        }else{
-            map.put(c,1);
+class Solution {
+    public String minWindow(String s, String t) {
+        //Sliding Window Technique :: 
+        // if(s == null || s.length() < t.length() || s.length() == 0){
+        //     return "";
+        // }
+        int n=s.length();
+        HashMap<Character,Integer> map = new HashMap<>();
+        for(int i=0;i<t.length();i++){
+            char ch = t.charAt(i);
+            map.put(ch,map.getOrDefault(ch,0)+1);
         }
-    }
-    int left = 0;
-    int minLeft = 0;
-    int minLen = s.length()+1;
-    int count = 0;
-    for(int right = 0; right < s.length(); right++){
-        if(map.containsKey(s.charAt(right))){
-            map.put(s.charAt(right),map.get(s.charAt(right))-1);
-            if(map.get(s.charAt(right)) >= 0){
-                count ++;
-            }
-            while(count == t.length()){
-                if(right-left+1 < minLen){
-                    minLeft = left;
-                    minLen = right-left+1;
+        int count=map.size();
+        int res=Integer.MAX_VALUE;
+        int start=0,end=0;
+        int fend=0,fstart=0;
+        
+        
+        while(end<n){
+            char c= s.charAt(end);
+            if(map.containsKey(c)){
+                map.put(c,map.get(c)-1);
+                if(map.get(c)==0){
+                    count--;
                 }
-                if(map.containsKey(s.charAt(left))){
-                    map.put(s.charAt(left),map.get(s.charAt(left))+1);
-                    if(map.get(s.charAt(left)) > 0){
-                        count --;
+            }
+            if(count>0){
+                end++;
+            }
+            else if(count==0){
+                while(count==0){
+                    if(res>end-start+1){
+                    res=end-start+1;
+                    fend=end;
+                    fstart=start;
+                    //System.out.println(s.substring(fstart,fend+1));
                     }
+                    char st =s.charAt(start);
+                    if(map.containsKey(st)){
+                        map.put(st,map.get(st)+1);
+                        if(map.get(st)==1){
+                            count++;
+                        }
+                    }
+                    start++;
                 }
-                left ++ ;
+                end++;
             }
         }
+        if(res>s.length())  return "";   
+        return s.contains(s.substring(fstart,fend+1))?s.substring(fstart,fend+1):"";
     }
-    if(minLen>s.length())  
-    {  
-        return "";  
-    }  
-    
-    return s.substring(minLeft,minLeft+minLen);
-}
 }
