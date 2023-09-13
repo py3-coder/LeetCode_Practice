@@ -1,12 +1,30 @@
 class Solution {
     public int commonFactors(int a, int b) {
-        int num =a>b?a:b;
+        //Broute Force ::
+        // int num =a>b?a:b;
+        // int count=0;
+        // for(int i=1;i<=num;i++){
+        //     if(a%i==0 && b%i==0){
+        //         count++;
+        //     }
+        // }
+        // return count;
+        //TC : O(n)
+        //SC :O(1)
+        
         int count=0;
+        int num=gcd(a,b);
         for(int i=1;i<=num;i++){
             if(a%i==0 && b%i==0){
                 count++;
             }
         }
         return count;
+        
+        
     }
+    public static int gcd(int a,int b){
+        return a==0?b:gcd(b%a,a);
+    }
+    
 }
