@@ -1,9 +1,6 @@
 class Solution {
     public String minWindow(String s, String t) {
         //Sliding Window Technique :: 
-        // if(s == null || s.length() < t.length() || s.length() == 0){
-        //     return "";
-        // }
         int n=s.length();
         HashMap<Character,Integer> map = new HashMap<>();
         for(int i=0;i<t.length();i++){
