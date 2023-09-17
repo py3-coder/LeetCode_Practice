@@ -1,6 +1,8 @@
 class Solution {
     public int singleNumber(int[] nums) {
         //edge case 
+        
+        // Brute force
         int n= nums.length;
         if(nums.length==1){
             return nums[0];
@@ -19,20 +21,33 @@ class Solution {
         //TC : O(nlogn)+O(n)
         //SC : O(1);
         
+        //By HashMap --> TC: O(n) SC -O(n)
         // Lets thing for Optimise::
-        int low =0;
-        int high=n-1;
-        while(low<high){
-            int mid =low+(high-low)/2;
-            if(mid%2!=0){
-                mid-=1;
-            }
-            if(nums[mid]==nums[mid+1]){
-                low=mid+2;
-            }else{
-                high=mid;
-            }
+        // int low =0;
+        // int high=n-1;
+        // while(low<high){
+        //     int mid =low+(high-low)/2;
+        //     if(mid%2!=0){
+        //         mid-=1;
+        //     }
+        //     if(nums[mid]==nums[mid+1]){
+        //         low=mid+2;
+        //     }else{
+        //         high=mid;
+        //     }
+        // }
+        // return nums[low];
+        
+        //TC : O(nlogn)+O(logn)
+        //SC : O(1)
+        
+        int XOR=0;
+        for(int val :nums){
+            XOR =val^XOR;
         }
-        return nums[low];
+        return XOR;
+        
+        //TC : O(n)
+        //SC : O(1)
     }
 }
