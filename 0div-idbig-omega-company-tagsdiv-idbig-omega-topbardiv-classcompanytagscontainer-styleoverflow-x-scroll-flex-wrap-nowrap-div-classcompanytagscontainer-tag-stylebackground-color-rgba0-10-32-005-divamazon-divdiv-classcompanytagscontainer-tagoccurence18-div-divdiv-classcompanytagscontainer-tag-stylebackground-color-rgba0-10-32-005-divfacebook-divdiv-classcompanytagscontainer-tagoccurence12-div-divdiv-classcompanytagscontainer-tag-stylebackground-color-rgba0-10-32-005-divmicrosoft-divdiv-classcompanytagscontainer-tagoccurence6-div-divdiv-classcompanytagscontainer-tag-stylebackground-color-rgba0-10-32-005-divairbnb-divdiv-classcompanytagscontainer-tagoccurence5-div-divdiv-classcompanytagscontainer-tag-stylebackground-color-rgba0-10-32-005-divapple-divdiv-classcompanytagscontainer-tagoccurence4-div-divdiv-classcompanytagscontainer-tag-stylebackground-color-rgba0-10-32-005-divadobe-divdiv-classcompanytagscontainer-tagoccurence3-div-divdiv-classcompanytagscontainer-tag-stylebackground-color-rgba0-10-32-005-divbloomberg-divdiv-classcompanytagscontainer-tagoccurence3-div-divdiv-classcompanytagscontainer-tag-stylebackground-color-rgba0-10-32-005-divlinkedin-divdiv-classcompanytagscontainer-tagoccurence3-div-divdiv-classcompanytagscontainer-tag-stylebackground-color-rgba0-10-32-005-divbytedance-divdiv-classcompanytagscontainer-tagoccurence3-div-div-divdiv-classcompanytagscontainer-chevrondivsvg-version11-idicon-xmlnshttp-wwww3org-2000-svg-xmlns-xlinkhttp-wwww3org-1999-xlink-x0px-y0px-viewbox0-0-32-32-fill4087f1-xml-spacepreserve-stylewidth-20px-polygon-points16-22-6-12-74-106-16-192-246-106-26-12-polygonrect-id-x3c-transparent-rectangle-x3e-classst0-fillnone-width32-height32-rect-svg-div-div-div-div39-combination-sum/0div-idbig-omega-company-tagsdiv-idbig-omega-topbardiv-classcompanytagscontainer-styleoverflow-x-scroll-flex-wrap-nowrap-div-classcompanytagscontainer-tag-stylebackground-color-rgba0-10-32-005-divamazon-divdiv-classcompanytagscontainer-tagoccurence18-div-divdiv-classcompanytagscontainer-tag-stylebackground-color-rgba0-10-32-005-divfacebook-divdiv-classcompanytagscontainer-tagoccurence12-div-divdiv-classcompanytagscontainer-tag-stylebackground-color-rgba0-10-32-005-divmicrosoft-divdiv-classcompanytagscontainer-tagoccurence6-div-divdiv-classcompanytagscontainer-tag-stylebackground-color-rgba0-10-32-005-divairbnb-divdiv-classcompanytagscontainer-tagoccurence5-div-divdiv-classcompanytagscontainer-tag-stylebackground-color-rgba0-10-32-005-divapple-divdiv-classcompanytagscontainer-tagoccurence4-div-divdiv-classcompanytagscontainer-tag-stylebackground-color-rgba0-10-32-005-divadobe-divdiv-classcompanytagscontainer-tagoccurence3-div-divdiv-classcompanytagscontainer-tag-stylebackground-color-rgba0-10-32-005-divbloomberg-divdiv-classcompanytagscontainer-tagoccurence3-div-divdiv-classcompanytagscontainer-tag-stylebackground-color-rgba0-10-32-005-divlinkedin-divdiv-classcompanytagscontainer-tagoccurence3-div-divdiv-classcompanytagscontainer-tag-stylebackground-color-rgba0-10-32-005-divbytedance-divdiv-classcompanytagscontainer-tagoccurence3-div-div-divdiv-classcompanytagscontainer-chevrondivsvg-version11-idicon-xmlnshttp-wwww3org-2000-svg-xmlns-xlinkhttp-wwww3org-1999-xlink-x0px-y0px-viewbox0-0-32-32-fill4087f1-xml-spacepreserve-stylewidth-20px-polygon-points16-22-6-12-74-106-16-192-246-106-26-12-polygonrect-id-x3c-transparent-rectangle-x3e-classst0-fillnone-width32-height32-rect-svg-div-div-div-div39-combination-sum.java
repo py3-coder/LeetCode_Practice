@@ -8,12 +8,12 @@ class Solution {
     }
     public static void solveRecursion(int[] arr, int indx,int target,List<List<Integer>> res,List<Integer> temp){
         //Base Case :::
-        if(indx ==arr.length){
-            if(target==0){
-                res.add(new ArrayList<>(temp));
-            }
-            return;
+        if(target == 0){
+            res.add(new ArrayList<>(temp));
+            return ;
         }
+        if(indx == arr.length)
+            return;
         if(arr[indx]<=target){
             temp.add(arr[indx]);
             solveRecursion(arr,indx,target-arr[indx],res,temp);
