@@ -43,9 +43,9 @@ class Solution
         for(int i=n-1;i>=0;i--){
             if(st.isEmpty()){
                 res[i] =-1;
-            }else if(st.size()>0 && st.peek()>arr[i]){
+            }else if( st.peek()>arr[i]){
                 res[i] =st.peek();
-            }else if(st.size()>0 && st.peek()<=arr[i]){
+            }else if( st.peek()<=arr[i]){
                 while(st.size()>0 && st.peek()<=arr[i]){
                     st.pop();
                 }
