@@ -43,13 +43,13 @@ class Solution
         for(int i=n-1;i>=0;i--){
             if(st.isEmpty()){
                 res[i] =-1;
-            }else if( st.peek()>arr[i]){
+            }else if(st.peek()>arr[i]){
                 res[i] =st.peek();
-            }else if( st.peek()<=arr[i]){
-                while(st.size()>0 && st.peek()<=arr[i]){
+            }else{
+                while(!st.isEmpty() && st.peek()<=arr[i]){
                     st.pop();
                 }
-                if(st.size()==0){
+                if(st.isEmpty()){
                     res[i] =-1;
                 }else{
                     res[i] =st.peek();
