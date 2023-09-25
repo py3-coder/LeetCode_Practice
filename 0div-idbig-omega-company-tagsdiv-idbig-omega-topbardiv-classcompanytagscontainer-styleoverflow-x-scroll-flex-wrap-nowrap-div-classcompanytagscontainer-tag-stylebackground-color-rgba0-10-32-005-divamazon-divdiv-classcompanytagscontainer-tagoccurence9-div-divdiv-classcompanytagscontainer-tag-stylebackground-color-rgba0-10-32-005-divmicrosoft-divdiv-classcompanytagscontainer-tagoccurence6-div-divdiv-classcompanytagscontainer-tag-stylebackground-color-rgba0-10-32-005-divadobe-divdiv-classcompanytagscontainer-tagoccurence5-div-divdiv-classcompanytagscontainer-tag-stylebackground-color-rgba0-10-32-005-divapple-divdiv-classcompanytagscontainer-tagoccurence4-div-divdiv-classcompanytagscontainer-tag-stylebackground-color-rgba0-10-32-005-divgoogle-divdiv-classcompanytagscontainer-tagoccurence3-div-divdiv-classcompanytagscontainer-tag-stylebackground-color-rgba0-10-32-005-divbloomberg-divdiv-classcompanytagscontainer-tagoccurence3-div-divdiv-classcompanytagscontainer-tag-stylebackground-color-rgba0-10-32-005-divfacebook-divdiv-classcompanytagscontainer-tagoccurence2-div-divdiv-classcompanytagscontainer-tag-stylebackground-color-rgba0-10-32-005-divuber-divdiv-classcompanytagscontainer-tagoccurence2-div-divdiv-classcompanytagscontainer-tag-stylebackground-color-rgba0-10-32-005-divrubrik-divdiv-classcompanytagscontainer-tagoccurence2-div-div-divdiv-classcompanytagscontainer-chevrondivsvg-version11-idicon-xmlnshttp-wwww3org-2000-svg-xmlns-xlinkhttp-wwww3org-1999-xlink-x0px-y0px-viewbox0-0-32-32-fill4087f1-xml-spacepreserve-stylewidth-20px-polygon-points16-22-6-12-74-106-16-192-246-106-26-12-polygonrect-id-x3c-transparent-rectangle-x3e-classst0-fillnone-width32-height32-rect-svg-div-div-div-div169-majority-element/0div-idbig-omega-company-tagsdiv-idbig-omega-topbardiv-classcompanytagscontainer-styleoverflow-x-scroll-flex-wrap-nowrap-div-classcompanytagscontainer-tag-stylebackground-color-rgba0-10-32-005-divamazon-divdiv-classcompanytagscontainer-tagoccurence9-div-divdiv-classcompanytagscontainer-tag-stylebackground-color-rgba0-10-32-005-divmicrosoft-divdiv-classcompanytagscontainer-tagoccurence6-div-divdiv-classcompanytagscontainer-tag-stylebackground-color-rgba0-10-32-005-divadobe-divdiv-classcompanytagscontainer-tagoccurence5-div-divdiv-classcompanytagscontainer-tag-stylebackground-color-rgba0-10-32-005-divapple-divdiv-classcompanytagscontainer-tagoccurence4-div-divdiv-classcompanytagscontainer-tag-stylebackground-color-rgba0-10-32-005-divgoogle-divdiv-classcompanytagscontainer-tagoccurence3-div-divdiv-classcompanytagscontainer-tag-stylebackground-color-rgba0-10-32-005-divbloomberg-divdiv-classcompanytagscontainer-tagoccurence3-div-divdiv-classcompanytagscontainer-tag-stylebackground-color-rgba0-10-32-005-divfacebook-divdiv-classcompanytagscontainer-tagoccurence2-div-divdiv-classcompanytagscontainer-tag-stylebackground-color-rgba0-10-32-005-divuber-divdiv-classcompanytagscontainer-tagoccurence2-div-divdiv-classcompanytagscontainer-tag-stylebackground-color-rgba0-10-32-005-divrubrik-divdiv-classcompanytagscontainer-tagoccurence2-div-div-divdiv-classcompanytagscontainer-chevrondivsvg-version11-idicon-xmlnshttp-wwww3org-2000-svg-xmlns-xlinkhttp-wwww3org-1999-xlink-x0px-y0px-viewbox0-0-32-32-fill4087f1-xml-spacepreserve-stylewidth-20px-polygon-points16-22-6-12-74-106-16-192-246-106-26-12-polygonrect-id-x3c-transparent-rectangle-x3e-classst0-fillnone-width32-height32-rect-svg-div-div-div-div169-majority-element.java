@@ -4,9 +4,9 @@ class Solution {
         int cnt=0;
         for(int i=0;i<nums.length;i++){
             if(cnt==0){
-                cnt+=1;
+                cnt++;
                 ele=nums[i];
-            }else if(ele==nums[i]) cnt++;
+            }else if(ele==nums[i])cnt++;
             else{
                 cnt--;
             }
