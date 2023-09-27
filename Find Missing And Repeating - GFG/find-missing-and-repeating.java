@@ -57,54 +57,55 @@ class Solve {
         //Since by this we can get X+Y -- 2
         //Solve 1 and 2 you get what you want::
         
-        // long S=0,S2=0;
-        // for(int i=0;i<n;i++){
-        //     S +=arr[i];
-        //     S2+=(long)arr[i]*(long)arr[i];
-        // }
-        // long SN = (n * (n + 1)) / 2;
-        // long S2N = (n * (n + 1) * (2 * n + 1)) / 6;
-        
-        // int val1 =(int)S - (int)SN;
-    
-        // int val2 =(int)S2 -(int)S2N;
-        // val2 = val2/val1;
-        
-        // int x =(val1+val2)/2;
-        // int y=x-val1;
-        
-        // return new int[]{x,y};
-        long n =N ;
-
-        long nsum = (n*(n+1))/2;
-
-        long nsq_sum = (n*(n+1)*(2*n+1)) / 6;
-
-        long csum = 0;
-
-        long csq_sum = 0;
-
-        for(long x:arr){
-
-            csum+=x;
-
-            csq_sum+=x*x;
-
+        long n=N;
+        long S=0,S2=0;
+        for(int i=0;i<n;i++){
+            S +=arr[i];
+            S2+=(long)arr[i]*(long)arr[i];
         }
+        long SN = (n * (n + 1)) / 2;
+        long S2N = (n * (n + 1) * (2 * n + 1)) / 6;
+        
+        long val1 =S - SN;
+    
+        long val2 =S2 -S2N;
+        val2 = val2/val1;
+        
+        long x =(val1+val2)/2;
+        long y=x-val1;
+        
+        return new int[]{(int)x,(int)y};
+        // long n =N ;
 
-        long df = nsum-csum;
+        // long nsum = (n*(n+1))/2;
 
-        long sm = (nsq_sum-csq_sum)/df;
+        // long nsq_sum = (n*(n+1)*(2*n+1)) / 6;
 
-        int[] res = new int[2];
+        // long csum = 0;
 
-        res[1] = (int) ((sm+df)/2);
+        // long csq_sum = 0;
 
-        res[0] = (int) ((sm-df)/2);
+        // for(long x:arr){
+
+        //     csum+=x;
+
+        //     csq_sum+=x*x;
+
+        // }
+
+        // long df = nsum-csum;
+
+        // long sm = (nsq_sum-csq_sum)/df;
+
+        // int[] res = new int[2];
+
+        // res[1] = (int) ((sm+df)/2);
+
+        // res[0] = (int) ((sm-df)/2);
 
         
 
-        return res;
+        // return res;
         
         
     }
