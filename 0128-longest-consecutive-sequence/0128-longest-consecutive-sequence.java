@@ -44,5 +44,8 @@ class Solution {
             max = Math.max(max,count);
         }
         return max;
+        
+        //TC : O(n)
+        //Sc : O(n)
     }
 }
