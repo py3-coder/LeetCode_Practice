@@ -14,16 +14,30 @@ class Solution {
 		// return maxi;
         
         //kadane algo
-        int n= arr.length;
+        // int n= arr.length;
+        // int maxsofar=Integer.MIN_VALUE;
+        // int maxendhere=0;
+        // for(int i=0;i<n;i++){
+        //     maxendhere+=arr[i];
+        //     if(maxsofar<maxendhere){
+        //         maxsofar=maxendhere;
+        //     }
+        //     if(maxendhere<0){
+        //         maxendhere=0;
+        //     }
+        // }
+        // return maxsofar;
+        
+        int n = arr.length;
         int maxsofar=Integer.MIN_VALUE;
-        int maxendhere=0;
+        int maxend=0;
         for(int i=0;i<n;i++){
-            maxendhere+=arr[i];
-            if(maxsofar<maxendhere){
-                maxsofar=maxendhere;
+            maxend +=arr[i];
+            if(maxend>maxsofar){
+                maxsofar=maxend;
             }
-            if(maxendhere<0){
-                maxendhere=0;
+            if(maxend<0){
+                maxend=0;
             }
         }
         return maxsofar;
