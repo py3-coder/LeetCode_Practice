@@ -1,6 +1,11 @@
 class Solution {
     public int maxProduct(int[] arr) {
         int n = arr.length;
+
+        //Broute Force ::
+        // TC : O(n^2)
+        //SC : O(1)
+
         int maxi =Integer.MIN_VALUE;
         //Based on Some Observation 
         int prefix=1;
