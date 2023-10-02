@@ -36,9 +36,10 @@ class Solution{
 	    //SC :O(1) + Aux =O(n)
 	    //return solveRec(arr,n,sum);
 	    //2. Memo Call
-	    int memo[][]=new int[n+1][sum+1];
-	    Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
-	    return solveMemo(arr,n,sum,memo);
+	   // int memo[][]=new int[n+1][sum+1];
+	   // Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
+	   // return solveMemo(arr,n,sum,memo);
+	   return solveTab(arr,n,sum);
 	    
 	    
 	} 
@@ -69,5 +70,26 @@ class Solution{
 	        memo[n][sum]=(solveMemo(arr,n-1,sum-arr[n-1],memo)%mod)+(solveMemo(arr,n-1,sum,memo)%mod);
 	        return memo[n][sum]=memo[n][sum]%mod;
 	    }
+	}
+	public static int solveTab(int arr[],int n,int sum){
+	    //
+	    int tab[][] = new int[n+1][sum+1];
+	    for(int i=0;i<n+1;i++){
+	        for(int j=0;j<sum+1;j++){
+	            if(i==0) tab[i][j]=0;
+	            if(j==0) tab[i][j]=1;
+	        }
+	    }
+	    for(int i=1;i<n+1;i++){
+	        for(int j=0;j<sum+1;j++){
+	            if(arr[i-1]>j){
+	                tab[i][j] =tab[i-1][j]%mod;
+	            }else{
+	                tab[i][j]=tab[i-1][j-arr[i-1]]%mod+tab[i-1][j]%mod;
+	                tab[i][j]%=mod;
+	            }
+	        }
+	    }
+	    return tab[n][sum];
 	}
 }
