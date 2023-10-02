@@ -39,9 +39,17 @@ class Solution{
         // Lets Play With Recursion :::
         //1. Recursion Call ::
         //return solveRec(N,arr,sum);
+        // TEL ::
+        // TC : O(2^n)
+        // SC : O(1)
         //2.Memo Call ::
-        Arrays.stream(memo).forEach(a -> Arrays.fill(a, -1));
-        return solvememo(N,arr,sum)==1?true:false;
+        // Arrays.stream(memo).forEach(a -> Arrays.fill(a, -1));
+        // return solvememo(N,arr,sum)==1?true:false;
+        //TC : O(n*sum)
+        //SC :O(n*sum)
+        //3. Tab call
+        /
+        return solveTab(N,arr,sum)==1?true:false;
         
         
     }
@@ -74,6 +82,30 @@ class Solution{
             //pick and not pick case::
             return memo[n][target]=Math.max(solvememo(n-1,arr,target-arr[n-1]),solvememo(n-1,arr,target));
         }
+    }
+    public static int solveTab(int n ,int arr[],int target){
+        //Base -->initilisation
+        int tab[][] = new int[n+1][target+1];
+        for(int i=0;i<n+1;i++){
+            for(int j=0;j<target+1;j++){
+                if(i==0){
+                    tab[i][j]=0;
+                }
+                if(j==0){
+                    tab[i][j]=1;
+                }
+            }
+        }
+        for(int i=1;i<n+1;i++){
+            for(int j=1;j<target+1;j++){
+                if(arr[i-1]>j){
+                    tab[i][j]=tab[i-1][j];
+                }else{
+                    tab[i][j]=Math.max(tab[i-1][j-arr[i-1]] ,tab[i-1][j]);
+                }
+            }
+        }
+        return tab[n][target];
     }
     
     
