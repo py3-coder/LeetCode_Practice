@@ -31,37 +31,67 @@ class GFG{
 // User function Template for Java
 
 class Solution{
-    static int equalPartition(int n, int arr[])
+    static int[][] memo = new int[101][100001];
+    static int equalPartition(int N, int arr[])
     {
         // code here
+        //Approch :: Idea-->
+        // Since We Know Subset Sum::) So sum of all ele of array if
+        // Odd -> Not possible to  Partition Equal subset
+        //Even  --> so if we find single subset available the other must::
+        // sum/2 = apply subset sum ::
+        // Lets start ::
+        
         int sum =0;
-        for(int i=0;i<n;i++){
-            sum +=arr[i];
+        for(int ele:arr){
+            sum+=ele;
         }
-        if(sum%2!=0){
-            return 0;
-        }else{
+        if(sum%2==1) return 0;
+        else{
             sum =sum/2;
-            Boolean dp[][] = new Boolean[n+1][sum+1];
-            boolean res= subsetsum_Memo(arr, sum,n-1,dp);
-            if(res==true) return 1;
-            else return 0;
+            return solveTab(N,arr,sum);
         }
     }
-    public static boolean subsetsum_Memo(int[] arr,int sum,int n,Boolean dp[][]){
-        if(sum==0) return true;
-        if(n==0) return false;
-        if(dp[n][sum]!=null){
-            return dp[n][sum];
+    public static int solvememo(int n,int arr[],int target){
+        //Base ::
+        if(target==0) return 1;
+        if(n==0) return 0;
+        
+        //check pre-camputed ?
+        if(memo[n][target]!=-1){
+            return memo[n][target];
         }
-        if(arr[n]>sum){
-            return subsetsum_Memo(arr,sum,n-1,dp);
+        if(arr[n-1]>target){
+            //not possible to pick --> Not pick Case ::
+            return memo[n][target]=solvememo(n-1,arr,target);
         }else{
-            boolean pick = subsetsum_Memo(arr,sum-arr[n],n-1,dp);
-            boolean not_pick =subsetsum_Memo(arr,sum,n-1,dp);
-            
-            dp[n][sum]=(pick||not_pick);
-            return dp[n][sum];
+            //pick and not pick case::
+            return memo[n][target]=Math.max(solvememo(n-1,arr,target-arr[n-1]),solvememo(n-1,arr,target));
         }
+    }
+    public static int solveTab(int n,int  arr[] ,int target){
+        //Base --> initlization
+        int tab[][] = new int[n+1][target+1];
+        for(int i=0;i<n+1;i++){
+            for(int j=0;j<target+1;j++){
+                if(i==0){
+                    tab[i][j]=0;
+                }
+                if(j==0){
+                    tab[i][j]=1;
+                }
+            }
+        }
+        
+        for(int i=1;i<n+1;i++){
+            for(int j=1;j<target+1;j++){
+                if(arr[i-1]>j){
+                    tab[i][j]=tab[i-1][j];
+                }else{
+                    tab[i][j] =Math.max(tab[i-1][j-arr[i-1]],tab[i-1][j]);
+                }
+            }
+        }
+        return tab[n][target];
     }
 }
