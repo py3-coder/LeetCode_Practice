@@ -52,15 +52,20 @@ class Solution
     static int[][] memo = new int[1001][1001];
     static int knapSack(int W, int wt[], int val[], int n) 
     { 
-         // your code here 
-         //Lets Play with Recursion ::
+         //Lets Play with Recursion --> DP ::
          //1. Call Recursion::
          //return solveRec(W,wt,val,n);
          // TLE :: 1156/1210
+         // TC : O(2^n)
+         // SC :O(1) -- Aux. Space : O(n)
          //2. Memo::
          //best ways to fill 2d array with single value::
-         Arrays.stream(memo).forEach(a -> Arrays.fill(a, -1));
-         return solveMemo(W,wt,val,n);
+        //  Arrays.stream(memo).forEach(a -> Arrays.fill(a, -1));
+        //  return solveMemo(W,wt,val,n);
+        // Test Case : 1210/1210
+        // TC : O(n*w)
+        // SC : O(n*w)
+        return solvetab(W,wt,val,n);
          
     } 
     public static int solveRec(int w ,int wt[] ,int val[],int n){
@@ -93,6 +98,28 @@ class Solution
             //pick and not pick :: max 
             return memo[n][w]=Math.max(val[n-1]+solveMemo(w-wt[n-1],wt,val,n-1),solveMemo(w,wt,val,n-1));
         }
+    }
+    public static int solvetab(int w,int wt[],int val[],int n){
+        // Base ---> Insilization::
+        int[][] tab = new int[n+1][w+1];
+        for(int i=0;i<n+1;i++){
+            for(int j=0;j<w+1;j++){
+                if(i==0 || j==0){
+                    tab[i][j] =0;
+                }
+            }
+        }
+        
+        for(int i=1;i<n+1;i++){
+            for(int j=1;j<w+1;j++){
+                if(wt[i-1]>j){
+                    tab[i][j] =tab[i-1][j];
+                }else{
+                    tab[i][j] =Math.max(val[i-1]+tab[i-1][j-wt[i-1]],tab[i-1][j]);
+                }
+            }
+        }
+        return tab[n][w];
     }
     
 }
