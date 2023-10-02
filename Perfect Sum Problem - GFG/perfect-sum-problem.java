@@ -25,38 +25,49 @@ class GfG
 // } Driver Code Ends
 
 
-
 class Solution{
-
-    int mod=1000000007;
-    int dp[][];
+    static int mod=1000000007;
 	public int perfectSum(int arr[],int n, int sum) 
 	{ 
 	    // Your code goes here
-	    dp=new int[n+1][sum+1];
-	    for(int i=0;i<n+1;i++){
-	        Arrays.fill(dp[i],-1);
+	    //Lets Play with Recursion::
+	    //1. Recursion Call ::
+	    //TC : O(2^n)
+	    //SC :O(1) + Aux =O(n)
+	    //return solveRec(arr,n,sum);
+	    //2. Memo Call
+	    int memo[][]=new int[n+1][sum+1];
+	    Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
+	    return solveMemo(arr,n,sum,memo);
+	    
+	    
+	} 
+	public static int solveRec(int arr[] ,int n, int sum){
+	    //Base Case :: Why am I adding ?? Since When we got req sum just return 1 which iclude:
+	    if(n==0){
+	        if(sum==0) return 1;
+	        return 0;
 	    }
-	    return fun(arr,0,sum);
+	    if(arr[n-1]>sum){
+	        return solveRec(arr,n-1,sum);
+	    }else{
+	        return solveRec(arr,n-1,sum-arr[n-1])+solveRec(arr,n-1,sum)%mod;
+	    }
 	}
-	public int fun(int arr[],int i,int sum)
-	{
-	    if(sum==0){
-	        int j=i;
-	        int p=1;
-	        while(j<arr.length && arr[j]==0){
-	            p++;
-	            j++;
-	        }
-	        return dp[i][sum]=p;
+	public static int solveMemo(int arr[] ,int n, int sum,int[][] memo){
+	    //Base Case :: Why am I adding ?? Since When we got req sum just return 1 which iclude:
+	    if(n==0){
+	        if(sum==0) return 1;
+	        return 0;
 	    }
-	    if(i==arr.length){
-	        return dp[i][sum]=0;
+	    if(memo[n][sum]!=-1){
+	        return memo[n][sum];
 	    }
-	    if(dp[i][sum]!=-1)return dp[i][sum];
-	    if(arr[i]<=sum)
-	    return dp[i][sum]=(fun(arr,i+1,sum)+fun(arr,i+1,sum-arr[i]))%mod;
-	    else
-	    return dp[i][sum]=fun(arr,i+1,sum);
+	    if(arr[n-1]>sum){
+	        return memo[n][sum]=solveMemo(arr,n-1,sum,memo);
+	    }else{
+	        memo[n][sum]=(solveMemo(arr,n-1,sum-arr[n-1],memo)%mod)+(solveMemo(arr,n-1,sum,memo)%mod);
+	        return memo[n][sum]=memo[n][sum]%mod;
+	    }
 	}
 }
