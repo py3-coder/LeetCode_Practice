@@ -1,6 +1,6 @@
 # Minimum sum partition
 ## Hard
-<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given an array&nbsp;<strong>arr</strong> of size <strong>N </strong>containing <strong>non-negative </strong>integers, the task is to divide it into two sets S1 and S2 such that the absolute difference between their sums is minimum and find the minimum difference</span></p>
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given an array&nbsp;<strong>arr</strong> of size <strong>n&nbsp;</strong>containing <strong>non-negative </strong>integers, the task is to divide it into two sets <strong>S1</strong> and <strong>S2</strong> such that the absolute difference between their sums is minimum and find the <strong>minimum</strong> difference</span></p>
 
 <p><br>
 <span style="font-size:18px"><strong>Example 1:</strong></span></p>
@@ -24,12 +24,11 @@ Subset2 = {4}, sum of Subset2 = 4</span></pre>
 You don't need to read input or print anything. Complete the function <strong><code>minDifference</code>()&nbsp;</strong>which takes <strong>N</strong> and array <strong>arr </strong>as input parameters and returns the integer value</span></p>
 
 <p><br>
-<span style="font-size:18px"><strong>Expected Time Complexity:</strong> O(<strong>N*|sum of array elements|</strong>)<br>
-<strong>Expected Auxiliary Space:</strong> O(<strong>N*|sum of array elements|</strong>)</span></p>
+<span style="font-size:18px"><strong>Expected Time Complexity:</strong> O(N*|sum of array elements|)<br>
+<strong>Expected Auxiliary Space:</strong> O(N*|sum of array elements|)</span></p>
 
 <p><br>
 <span style="font-size:18px"><strong>Constraints:</strong><br>
-1 ≤&nbsp;<strong>N*|sum of array elements|</strong> ≤ 10<sup>6</sup></span></p>
-
-<p><span style="font-size:18px"><sup>The array contains non-negative integers.</sup></span></p>
+1 ≤&nbsp;N*|sum of array elements| ≤ 10<sup>6</sup><br>
+0 &lt; arr[i] &lt;= 10<sup>5</sup></span></p>
 </div>
