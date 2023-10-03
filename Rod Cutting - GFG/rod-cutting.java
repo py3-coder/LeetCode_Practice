@@ -38,9 +38,12 @@ class Solution{
             size[i] =i+1;
         }
         // return solveRec(price,size,n,n);
-        int [][] memo =new int[n+1][n+1];
-        Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
-        return solveMemo(price,size,n,n,memo);
+        //2.Memo
+        // int [][] memo =new int[n+1][n+1];
+        // Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
+        // return solveMemo(price,size,n,n,memo);
+        //3. Tab:
+        return solveTab(price,size,n,n);
         
     }
     public static int solveRec(int price[],int size[],int n,int s){
@@ -64,5 +67,19 @@ class Solution{
             return memo[n][s]=Math.max(price[n-1]+solveMemo(price,size,n,s-size[n-1],memo),solveMemo(price,size,n-1,s,memo));
         }
     }
-    
+    public static int solveTab(int price[],int size[],int n,int s){
+        //Table ::
+        int tab[][] = new int[n+1][n+1];
+        //base - initlisation::automatic since default value is 0
+        for(int i=1;i<n+1;i++){
+            for(int j=1;j<s+1;j++){
+                if(size[i-1]>j){
+                    tab[i][j] =tab[i-1][j];
+                }else{
+                    tab[i][j] =Math.max(price[i-1]+tab[i][j-size[i-1]],tab[i-1][j]);
+                }
+            }
+        }
+        return tab[n][s];
+    }
 }
