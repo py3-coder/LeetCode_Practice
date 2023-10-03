@@ -13,6 +13,8 @@ class Solution {
             memo.add(new HashMap<Integer,Integer>());
         }
         return solveMemo(nums, n, target,memo);
+        //TC: O(n*target)
+        //SC : O(n*target)
     }
     public static int solveRec(int[] arr,int n,int target){
         if(n==0){
