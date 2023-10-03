@@ -40,11 +40,15 @@ class Solution{
         //Lets play with recursion :-
         //1.Recursion ::
         //TC : O(2^n)
-        // TLE 
+        // TLE : 3/205
         // return solveRec(N,W,val,wt);
         //2. Memo Call
-        Arrays.stream(memo).forEach(a -> Arrays.fill(a,-1));
-        return solveMemo(N,W,val,wt);
+        // TC : O(n*w)
+        // SC: O(n*w)
+        // Arrays.stream(memo).forEach(a -> Arrays.fill(a,-1));
+        // return solveMemo(N,W,val,wt);
+        //3. tab
+        return solveTab(N,W,val,wt);
         
     }
     public static int solveRec(int n,int w,int val[],int wt[]){
@@ -69,5 +73,21 @@ class Solution{
         }else{
             return memo[n][w]=Math.max(val[n-1]+solveMemo(n,w-wt[n-1],val,wt),solveMemo(n-1,w,val,wt));
         } 
+    }
+    public static int solveTab(int n,int w,int val[],int wt[]){
+        //
+        int tab[][] = new int[n+1][w+1];
+        // Base Case - Initlization::
+        // o is default value of array so no need to fill it manually::
+        for(int i=1;i<n+1;i++){
+            for(int j=1;j<w+1;j++){
+                if(wt[i-1]>j){
+                    tab[i][j] = tab[i-1][j];
+                }else{
+                    tab[i][j] = Math.max(val[i-1]+tab[i][j-wt[i-1]],tab[i-1][j]);
+                }
+            }
+        }
+        return tab[n][w];
     }
 }
