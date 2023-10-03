@@ -25,60 +25,65 @@ class GfG {
 // User function Template for Java
 
 class Solution {
+    static long[][] memo =new long[1001][1001];
     public long count(int coins[], int N, int sum) {
         // code here.
-        // Recursion Driver Code :
-        //return count_R(coins,N-1,sum);
+        //1. Recursion::
+        // TC : O(2^n) SC : O(1)
+        //return solveRec(coins,N,sum);
         
-        // Memoization Driver Code :
-        //long dp[][] = new long[N+1][sum+1];
-        //Arrays.stream(dp).forEach(a->Arrays.fill(a,-1));
-        //return count_Memo(coins,N-1,sum,dp);
+        //2.Memo ::
+        // TLE : 235/1120
+        //TC : O(n*sum)
+        //SC :O(1)
+        // Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
+        // return solveMem(coins,N,sum);
         
-        return count_Tab(coins,sum);
+        //3. Tabulation::
+        return solveTab(coins,N,sum);
     }
-    // Similar to Unbounded knapsack think of --> Count of Subset sum problem just do some modification
-    // you will enjoy it..
-    
-    // Recursion 
-    public long count_R(int coins[],int n,int sum){
-        if(sum ==0) return 1;
-        if(n<0) return 0;
+    public long solveRec(int coins[],int n,int sum){
+        if(sum==0) return 1;
+        if(n==0) return 0;
         
-        if(coins[n]>sum){
-            return count_R(coins,n-1,sum);
+        if(coins[n-1]>sum){
+            return solveRec(coins,n-1,sum);
         }else{
-            return count_R(coins,n-1,sum) + count_R(coins,n,sum-coins[n]);
+            return solveRec(coins,n,sum-coins[n-1])+solveRec(coins,n-1,sum);
         }
     }
-    
-    // Memoization 
-    public long count_Memo(int coins[],int n,int sum,long dp[][]){
-        if(sum ==0) return 1;
-        if(n<0) return 0;
-        if(dp[n][sum]!=-1) return dp[n][sum];
-        if(coins[n]>sum){
-            return dp[n][sum]= count_Memo(coins,n-1,sum,dp);
+    public long solveMem(int coins[],int n,int sum){
+        if(sum==0) return 1;
+        if(n==0) return 0;
+        
+        if(memo[n][sum]!=-1){
+            return memo[n][sum];
+        }
+        if(coins[n-1]>sum){
+            return memo[n][sum]=solveMem(coins,n-1,sum);
         }else{
-            return dp[n][sum]= count_Memo(coins,n-1,sum,dp) + count_Memo(coins,n,sum-coins[n],dp);
+            return memo[n][sum]=solveMem(coins,n,sum-coins[n-1])+solveMem(coins,n-1,sum);
         }
     }
-    // Tabulation
-    public long count_Tab(int coins[],int sum){
-        int n=coins.length;
-        long dp[][] = new long[n+1][sum+1];
+    public long solveTab(int coins[],int n,int sum){
+        //Tabulation::
+        long tab[][] = new long[n+1][sum+1];
         for(int i=0;i<n+1;i++){
-            dp[i][0] =1;
+            for(int j=0;j<sum+1;j++){
+                if(i==0) tab[i][j]=0;
+                if(j==0) tab[i][j]=1;
+            }
         }
+        //
         for(int i=1;i<n+1;i++){
-            for(int j=1;j<sum+1;j++){
-             if(coins[i-1]>j){
-                dp[i][j] = dp[i-1][j];
-            }else{
-                dp[i][j] = dp[i-1][j] + dp[i][j-coins[i-1]];
+            for(int j=0;j<sum+1;j++){
+                if(coins[i-1]>j){
+                    tab[i][j] = tab[i-1][j];
+                }else{
+                    tab[i][j] =tab[i][j-coins[i-1]]+tab[i-1][j];
                 }
             }
         }
-        return dp[n][sum];
+        return tab[n][sum];
     }
 }
