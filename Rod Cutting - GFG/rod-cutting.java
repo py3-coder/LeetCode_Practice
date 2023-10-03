@@ -4,17 +4,21 @@ import java.util.*;
 
 class RodCutting {
 
-    public static void main(String args[]) {
-        Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
+    public static void main(String args[])throws IOException {
+        BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter out=new PrintWriter(System.out);
+        
+        int t = Integer.parseInt(in.readLine().trim());
         while (t-- > 0) {
-            int n = sc.nextInt();
+            int n = Integer.parseInt(in.readLine().trim());
+            String s[]=in.readLine().trim().split(" ");
             int[] arr = new int[n];
-            for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
+            for (int i = 0; i < n; i++) arr[i] = Integer.parseInt(s[i]);
 
             Solution ob = new Solution();
-            System.out.println(ob.cutRod(arr, n));
+            out.println(ob.cutRod(arr, n));
         }
+        out.close();
     }
 }
 
@@ -24,52 +28,41 @@ class RodCutting {
 class Solution{
     public int cutRod(int price[], int n) {
         //code here
-        int len[] = new int[n];
-        for(int i=0;i<n;i++)
-        len[i] =i+1;
-        //Recursion
-        //return cutRod_R(price,len,n,n);
-        //memo
-        //int dp[][] = new int[n+1][n+1];
-        //Arrays.stream(dp).forEach(a->Arrays.fill(a,-1));
-        //return cutRod_M(price,len,n,n,dp);
-        //Tabu
-        return cutRod_Tabulation(price,len,n);
+        // Lets Play with Recursion --> DP ::
+        //1. Recursion :: 
+        // TLE ::
+        //TC : O(2^n)
+        //SC : O(1)
+        int size[] = new int[n];
+        for(int i=0;i<n;i++){
+            size[i] =i+1;
+        }
+        // return solveRec(price,size,n,n);
+        int [][] memo =new int[n+1][n+1];
+        Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
+        return solveMemo(price,size,n,n,memo);
         
     }
-    //Recursion 
-    public static int cutRod_R(int price[],int len[],int n,int L){
-    if(L==0 || n==0) return 0;
-    if(len[n-1]>L){
-        return cutRod_R(price,len,n-1,L);
-    }else{
-        return Math.max(cutRod_R(price,len,n-1,L),price[n-1]+cutRod_R(price,len,n,L-len[n-1]));
-        }
-    }
-    // Memoization
-    public static int cutRod_M(int price[],int len[],int n,int L,int dp[][]){
-    if(L==0 || n==0) return 0;
-    if(dp[n][L]!=-1) return dp[n][L];
-    if(len[n-1]>L){
-        return dp[n][L]=cutRod_M(price,len,n-1,L,dp);
-    }else{
-        return dp[n][L]=Math.max(cutRod_M(price,len,n-1,L,dp),price[n-1]+cutRod_M(price,len,n,L-len[n-1],dp));
-        }
-    }
-    //Tabulation
-    public static int cutRod_Tabulation(int price[],int len[],int n){
+    public static int solveRec(int price[],int size[],int n,int s){
+        //Base Case ::
+        if(n==0 || s==0) return 0;
         
-        int dp[][] = new int[n+1][n+1];
-        
-        for(int i=1;i<n+1;i++){
-            for(int j=1;j<n+1;j++){
-                if(len[i-1]>j){
-                    dp[i][j] = dp[i-1][j];
-                }else{
-                    dp[i][j] = Math.max(dp[i-1][j],price[i-1]+dp[i][j-len[i-1]]);
-                }
-            }
+        if(size[n-1]>s){
+            return solveRec(price,size,n-1,s);
+        }else{
+            return Math.max(price[n-1]+solveRec(price,size,n,s-size[n-1]),solveRec(price,size,n-1,s));
         }
-        return dp[n][n];
     }
+    public static int solveMemo(int price[],int size[],int n,int s,int[][] memo){
+        if(n==0 || s==0) return 0;
+        if(memo[n][s]!=-1){
+            return memo[n][s];
+        }
+        if(size[n-1]>s){
+            return memo[n][s]=solveMemo(price,size,n-1,s,memo);
+        }else{
+            return memo[n][s]=Math.max(price[n-1]+solveMemo(price,size,n,s-size[n-1],memo),solveMemo(price,size,n-1,s,memo));
+        }
+    }
+    
 }
