@@ -1,23 +1,36 @@
 class Solution {
     public List<String> generateParenthesis(int n) {
-        int Open =n;
+        ArrayList<String> res = new ArrayList<>();
+        if(n==0){
+            return res;
+        }
+        int open=n;
         int close=n;
-        String Op="";
-        List<String> res = new ArrayList<>();
-        
-        Solve(Open,close,Op,res);
+        String op="";
+        genrate(open, close,op, res);
         return res;
+        
     }
-    public static void Solve(int Open,int close,String Op,List<String> res){
-        if(Open==0 && close==0){
-            res.add(Op);
+    public static void genrate(int open,int close,String op,ArrayList<String> res){
+        if(open==0 && close==0){
+            res.add(op);
             return;
         }
-        if(Open!=0){
-            Solve(Open-1,close,Op+'(',res);
+        if(open==close){
+            op+="(";
+            genrate(open-1, close, op, res);
         }
-        if(close>Open){
-            Solve(Open,close-1,Op+')',res);
+        if(open<close){
+            String op1 =op;
+            String op2 =op;
+            //pick close::
+            op1+=")";
+            genrate(open, close-1, op1, res);
+            if(open!=0){
+                //not pick close means we have to pick open :)
+                op2+="(";
+                genrate(open-1, close, op2, res);
+            }
         }
     }
 }
