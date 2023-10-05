@@ -5,39 +5,37 @@ class Solution {
         arr[1]=lastPosition(nums,target);
         return arr;
     }
-    public static int firstPostion(int arr[],int target){
-        int start =0;
-        int end = arr.length-1;
-        int res =-1;
-        while(start<=end){
-            int mid  =start+(end-start)/2;
-            if(target<arr[mid]){
-                end = mid-1;
-            }else if(target>arr[mid]){
-                start =mid+1;
+    public static int firstPostion(int[] nums,int target){
+        int ans=-1;
+        int low=0,high=nums.length-1;
+        while(low<=high){
+            int mid =low+(high-low)/2;
+            if(nums[mid]==target){
+                ans=mid;
+                high=mid-1;
+            }else if(nums[mid]>target){
+                high=mid-1;
             }else{
-                res = mid;
-                end = mid-1;
+                low=mid+1;
             }
         }
-        return res;
+        return ans;
     }
-    
-    public static int lastPosition(int arr[],int target){
-        int start =0;
-        int end =arr.length-1;
-        int res =-1;
-        while(start<=end){
-            int mid = start+(end-start)/2;
-           if(target<arr[mid]){
-                end = mid-1;
-            }else if(target>arr[mid]){
-                start= mid+1;
+    public static int lastPosition(int[] nums,int target){
+        int ans=-1;
+        int low=0,high=nums.length-1;
+        while(low<=high){
+            int mid =low+(high-low)/2;
+            if(nums[mid]==target){
+                ans=mid;
+                low=mid+1;
+            }else if(nums[mid]>target){
+                high=mid-1;
             }else{
-               res=mid;
-                start=mid+1; 
+                low=mid+1;
             }
         }
-        return res;
+        return ans;
     }
+
 }
