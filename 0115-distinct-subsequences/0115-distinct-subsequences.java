@@ -5,9 +5,9 @@ class Solution {
         //return solveRec(s.length(),t.length(),s,t);
 
         // Lets Memoise it fast:)
-        Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
-        return solveMemo(s.length(),t.length(),s,t);
-
+        // Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
+        // return solveMemo(s.length(),t.length(),s,t);
+        return solveTab(s.length(),t.length(),s,t);
         
     }
     public static int solveRec(int n,int m,String s, String t){
@@ -45,5 +45,25 @@ class Solution {
             // leave it since no choice available::
             return memo[n][m]=solveMemo(n-1,m,s,t);
         }
+    }
+    public static int solveTab(int n,int m,String s, String t){
+        //Tabulation::
+        int tab[][] = new int[n+1][m+1];
+        //initlisation::
+        for(int i=0;i<n+1;i++){
+            for(int j=0;j<m+1;j++){
+                if(j==0) tab[i][j]=1;
+            }
+        }
+        for(int i=1;i<n+1;i++){
+            for(int j=1;j<m+1;j++){
+                if(s.charAt(i-1)==t.charAt(j-1)){
+                    tab[i][j] = tab[i-1][j-1] +tab[i-1][j];
+                }else{
+                    tab[i][j] =tab[i-1][j];
+                }
+            }
+        }
+        return tab[n][m];
     }
 }
