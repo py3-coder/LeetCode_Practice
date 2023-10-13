@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/scramble-string/">87. Scramble String</a></h2><h3>Hard</h3><hr><div><p>We can scramble a string s to get a string t using the following algorithm:</p>
+<h2><a href="https://leetcode.com/problems/scramble-string">87. Scramble String</a></h2><h3>Hard</h3><hr><p>We can scramble a string s to get a string t using the following algorithm:</p>
 
 <ol>
 	<li>If the length of the string is 1, stop.</li>
@@ -16,28 +16,31 @@
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
 
-<pre><strong>Input:</strong> s1 = "great", s2 = "rgeat"
+<pre>
+<strong>Input:</strong> s1 = &quot;great&quot;, s2 = &quot;rgeat&quot;
 <strong>Output:</strong> true
 <strong>Explanation:</strong> One possible scenario applied on s1 is:
-"great" --&gt; "gr/eat" // divide at random index.
-"gr/eat" --&gt; "gr/eat" // random decision is not to swap the two substrings and keep them in order.
-"gr/eat" --&gt; "g/r / e/at" // apply the same algorithm recursively on both substrings. divide at random index each of them.
-"g/r / e/at" --&gt; "r/g / e/at" // random decision was to swap the first substring and to keep the second substring in the same order.
-"r/g / e/at" --&gt; "r/g / e/ a/t" // again apply the algorithm recursively, divide "at" to "a/t".
-"r/g / e/ a/t" --&gt; "r/g / e/ a/t" // random decision is to keep both substrings in the same order.
-The algorithm stops now, and the result string is "rgeat" which is s2.
+&quot;great&quot; --&gt; &quot;gr/eat&quot; // divide at random index.
+&quot;gr/eat&quot; --&gt; &quot;gr/eat&quot; // random decision is not to swap the two substrings and keep them in order.
+&quot;gr/eat&quot; --&gt; &quot;g/r / e/at&quot; // apply the same algorithm recursively on both substrings. divide at random index each of them.
+&quot;g/r / e/at&quot; --&gt; &quot;r/g / e/at&quot; // random decision was to swap the first substring and to keep the second substring in the same order.
+&quot;r/g / e/at&quot; --&gt; &quot;r/g / e/ a/t&quot; // again apply the algorithm recursively, divide &quot;at&quot; to &quot;a/t&quot;.
+&quot;r/g / e/ a/t&quot; --&gt; &quot;r/g / e/ a/t&quot; // random decision is to keep both substrings in the same order.
+The algorithm stops now, and the result string is &quot;rgeat&quot; which is s2.
 As one possible scenario led s1 to be scrambled to s2, we return true.
 </pre>
 
 <p><strong class="example">Example 2:</strong></p>
 
-<pre><strong>Input:</strong> s1 = "abcde", s2 = "caebd"
+<pre>
+<strong>Input:</strong> s1 = &quot;abcde&quot;, s2 = &quot;caebd&quot;
 <strong>Output:</strong> false
 </pre>
 
 <p><strong class="example">Example 3:</strong></p>
 
-<pre><strong>Input:</strong> s1 = "a", s2 = "a"
+<pre>
+<strong>Input:</strong> s1 = &quot;a&quot;, s2 = &quot;a&quot;
 <strong>Output:</strong> true
 </pre>
 
@@ -49,4 +52,3 @@ As one possible scenario led s1 to be scrambled to s2, we return true.
 	<li><code>1 &lt;= s1.length &lt;= 30</code></li>
 	<li><code>s1</code> and <code>s2</code> consist of lowercase English letters.</li>
 </ul>
-</div>
