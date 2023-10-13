@@ -6,8 +6,9 @@ class Solution {
         //return solveRec(n);
         
         //2. Memo:
-        Arrays.fill(memo,-1);
-        return solveMemo(n);
+        // Arrays.fill(memo,-1);
+        // return solveMemo(n);
+        return solveTab(n);
 
     }
     public static int solveRec(int n){
@@ -34,5 +35,17 @@ class Solution {
             return memo[n]=solveMemo(n-1);
         }
         return memo[n]=solveMemo(n-1)+solveMemo(n-2);
+    }
+    public static int solveTab(int n){
+        //Base Case ::
+		int tab[] = new int[n+2];
+		tab[0]=1;
+		tab[1]=1;
+        //choice diagram ::
+        // either 1 steps or 2 steps :: since we are counting the ways:: just add it:
+        for(int i=2;i<=n;i++){
+			tab[i] = (tab[i-1]+tab[i-2]);
+		}
+		return tab[n];
     }
 }
