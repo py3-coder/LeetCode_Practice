@@ -11,11 +11,16 @@ class Solution {
         if(n==1){
             return nums[0];
         }
-        Arrays.fill(memo,-1);
-        int skipfirst =solveMemo(nums,nums.length-1,1);
-        Arrays.fill(memo,-1);
-        int skiplast=solveMemo(nums,nums.length-2,0);
-        return Math.max(skipfirst,skiplast);
+        // Arrays.fill(memo,-1);
+        // int skipfirst =solveMemo(nums,nums.length-1,1);
+        // Arrays.fill(memo,-1);
+        // int skiplast=solveMemo(nums,nums.length-2,0);
+        // return Math.max(skipfirst,skiplast);
+
+        int firstskip=solveOptimised(nums,1,nums.length-1);
+        int lastskip=solveOptimised(nums,0,nums.length-2);
+
+        return Math.max(firstskip,lastskip);
         
     }
     public static int solveRec(int[] arr,int n,int i){
@@ -39,5 +44,15 @@ class Solution {
         int notrob =solveMemo(arr,n-1,i);
 
         return memo[n]=Math.max(rob,notrob);
+    }
+    //lets think of some optimised::
+    public static int solveOptimised(int arr[],int i,int n){
+        int prev2=0,prev1=0;
+        for(int j=i;j<=n;j++){
+            int temp =Math.max(arr[j]+prev2,prev1);
+            prev2=prev1;
+            prev1=temp;
+        }
+        return prev1;
     }
 }
