@@ -1,5 +1,5 @@
 class Solution {
-    static int[][] memo= new int[500][500];
+    static int[][] memo= new int[366][500];
     static int[]memoB= new int[366];
     public int mincostTickets(int[] days, int[] costs) {
         //Recursion :: TC =O(3^n)
@@ -9,10 +9,14 @@ class Solution {
         // Memoisation ::
         // TC : O(n*n)
         // SC: O(n*n) +O(n)
-        // Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
-        // return solveMemo(0,0,days,costs);
-        Arrays.fill(memoB,-1);
-        return solveMemoBS(0,days,costs);
+         Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
+        return solveMemo(0,0,days,costs);
+
+        //Optimised:: Using Binary Search 
+        // TC : O(nlogn)
+        // SC : O(n)
+        // Arrays.fill(memoB,-1);
+        // return solveMemoBS(0,days,costs);
     }
     public static int solveRec(int indx,int validity,int[] days,int[] cost){
         //Base Case::
