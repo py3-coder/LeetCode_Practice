@@ -8,11 +8,20 @@ class Solution {
         // Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
         // return solveMemo(0,-1,nums);
 
+        // Tabulation -Bottom UP DP:) TC :O(n*n) SC : O(n*n)
         //return solveTab(nums);
 
+        // Tabulation - Space Optmised :) TC : O(n*n) SC: O(n)
         //return solveOptimisationSpace(nums);
+ 
+        // Diff Algo ::
+        // TC : O(n*n)  SC : O(n)
+        //return solveLCS(nums);
 
-        return solveLCS(nums);
+        // Binary Search Approch ::
+        // TC : O(nlogn)
+        // SC : O(n)
+        return solveBS(nums);
 
     }
     public static int solveRec(int indx,int prev,int nums[]){
@@ -82,6 +91,8 @@ class Solution {
         }
         return curr[0];
     }
+    // diff approch :: like till that idex what tha lcs ::
+    // Do on papper eaily get it:
     public static int solveLCS(int nums[]){
         int n=nums.length;
         int lcs[] = new int[n+1];
@@ -100,6 +111,34 @@ class Solution {
         }
         return maxi;
     }
+    public static int solveBS(int nums[]){
+        ArrayList<Integer> temp = new ArrayList<>();
+        temp.add(nums[0]);
+        for(int i=1;i<nums.length;i++){
+            if(temp.get(temp.size()-1)<nums[i]){
+                temp.add(nums[i]);
+            }else{
+                int pos = binarySearch(nums[i],temp);
+                temp.set(pos,nums[i]);
+            }
+        }
+        return temp.size();
+    }
+    public static int binarySearch(int target,ArrayList<Integer> arr){
+        int l =0;
+        int h =arr.size();
 
+        while(l<=h){
+            int m =l+(h-l)/2;
+            if(arr.get(m)==target){
+                return m;
+            }else if(arr.get(m)>target){
+                h=m-1;
+            }else{
+                l=m+1;
+            }
+        }
+        return l;
+    }
     
 }
