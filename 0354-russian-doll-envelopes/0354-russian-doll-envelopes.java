@@ -9,8 +9,12 @@ class Solution {
             return 1;
         }
         //return solveLis(envelopes);
+        // TC : O(n^2)  --TLE
+        // SC: O(n)+O(n)
         // fails at 85/87 testcase::
 
+        // TC : O(nlogn)
+        // SC: O(n)+O(n)
         return solveLISOptimised(envelopes);
         
     }
