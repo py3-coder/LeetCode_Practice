@@ -21,9 +21,9 @@ class Solution {
         // Binary Search Approch ::
         // TC : O(nlogn)
         // SC : O(n)
-        //return solveBS(nums);
+        return solveBS(nums);
 
-        return lengthOfLISBS(nums);
+       // return lengthOfLISBS(nums);
 
     }
     public static int solveRec(int indx,int prev,int nums[]){
@@ -128,7 +128,7 @@ class Solution {
     }
     public static int binarySearch(int target,ArrayList<Integer> arr){
         int l =0;
-        int h =arr.size();
+        int h =arr.size()-1;
 
         while(l<=h){
             int m =l+(h-l)/2;
@@ -152,7 +152,6 @@ class Solution {
             dp[i] = x;
             if(i == len) len++;
         }
-
         return len;
     }
     
