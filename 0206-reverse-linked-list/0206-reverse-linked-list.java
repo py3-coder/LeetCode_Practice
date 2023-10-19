@@ -9,7 +9,11 @@
  * }
  */
 class Solution {
-    public ListNode reverseList(ListNode head) {
+    public ListNode reverseList(ListNode head){
+        return solveRec(head);
+    }
+    //Iterative::
+    public static ListNode reverse(ListNode head) {
         if(head==null || head.next==null){
             return head;
         }
@@ -26,5 +30,15 @@ class Solution {
             head=prev;
         }
         return head;
+    }
+    // Recursive::
+    public static ListNode solveRec(ListNode head){
+        //Base Case ::
+        if(head==null || head.next==null) return head;
+
+        ListNode newhead =solveRec(head.next);
+        head.next.next =head;
+        head.next=null;
+        return newhead;
     }
 }
