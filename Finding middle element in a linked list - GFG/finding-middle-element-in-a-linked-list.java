@@ -64,13 +64,20 @@ class Solution
         //  TC : O(n)+O(n/2)  SC : O(1)
         
         // Two pointer approch ::
-        Node slow=head;
-        Node fast=head;
+        // Node slow=head;
+        // Node fast=head;
         
-        while(fast!=null && fast.next!=null){
-            fast=fast.next.next;
-            slow =slow.next;
-        }
-        return slow.data;
+        // while(fast!=null && fast.next!=null){
+        //     fast=fast.next.next;
+        //     slow =slow.next;
+        // }
+        // return slow.data;
+        
+        return solveRec(head,head);
+        
+    }
+    public static int solveRec(Node slow,Node fast){
+        if(fast==null || fast.next==null ) return slow.data;
+        return solveRec(slow.next,fast.next.next);
     }
 }
