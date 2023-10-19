@@ -68,18 +68,35 @@ class Node {
 class Solution
 {
     //Function to reverse a linked list.
+    // Node reverseList(Node head)
+    // {
+    //     // code here
+    //     Node prev=null;
+    //     Node curr=head;
+    //     Node next;
+    //     while(curr!=null){
+    //         next =curr.next;
+    //         curr.next =prev;
+    //         prev =curr;
+    //         curr =next;
+    //     }
+    //     return prev;
+    // }
     Node reverseList(Node head)
     {
         // code here
-        Node prev=null;
-        Node curr=head;
-        Node next;
-        while(curr!=null){
-            next =curr.next;
-            curr.next =prev;
-            prev =curr;
-            curr =next;
-        }
-        return prev;
+        return solveRec(head);
+        
+        
+    }
+    public static Node solveRec(Node head){
+        //Base Case ::
+        if(head==null || head.next==null) return head;
+        //
+        Node temp =solveRec(head.next);
+        head.next.next=head;
+        head.next=null;
+        return temp;
+        
     }
 }
