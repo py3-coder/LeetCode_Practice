@@ -15,21 +15,18 @@ public class Solution {
         // TC:   O(n+m)  SC: O(n+m)
 
         // 2. Approch Find len diff::
-        // TC : O(n+m)+O(n+m)
+        // TC : O(n+m)+O(n+m) ~ O(n+m)
         // SC :O(1)
-        return interserction(headA,headB);
+        //return intersection1(headA,headB);
 
-        //3. Two pointer Approch::
+        //3. Two Traversal::
         //TC : O(n+m)
         //SC : O(1)
-
-        
-
-
+        return intersection(headA,headB);
 
     }
     //Lets implement 2 one::
-    public static ListNode interserction(ListNode headA,ListNode headB){
+    public static ListNode intersection1(ListNode headA,ListNode headB){
         //
         int lenA =length(headA);
         int lenB =length(headB);
@@ -52,4 +49,28 @@ public class Solution {
         if(head==null) return 0;
         return 1+length(head.next);
     }
+
+    //Approch 3:
+    // two iteration :: Imp
+    public static ListNode intersection(ListNode headA,ListNode headB){
+        //edge
+        if(headA==null || headB==null){
+            return null;
+        }
+        ListNode A =headA;
+        ListNode B =headB;
+        //diff len : need 2 iteration:
+        while(A!=B){
+            //after the first traversal ::
+            // just change the A - point B head and B -point A head
+            // Math :: len(A) = n+c  
+            //      len(B) =m+c
+            // n+c+m+c == m+c+n+c :: if there is intersection they must meet in second iteration 
+            // else they meet at null pointer:)
+            A = (A==null)?headB:A.next;
+            B = (B==null)?headA:B.next;
+        }
+        return A;
+    }
+    
 }
