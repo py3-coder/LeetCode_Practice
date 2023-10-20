@@ -15,6 +15,7 @@ public class Solution {
         // TC:   O(n+m)  SC: O(n+m)
 
         // 2. Approch Find len diff::
+        // Iterative/ Recursive just add aux space O(n+m) for func call:
         // TC : O(n+m)+O(n+m) ~ O(n+m)
         // SC :O(1)
         //return intersection1(headA,headB);
@@ -25,7 +26,8 @@ public class Solution {
         return intersection(headA,headB);
 
     }
-    //Lets implement 2 one::
+    //Lets implement 2 one:: this can also done with recursion::
+    // simple aaproch think bit you will get it.
     public static ListNode intersection1(ListNode headA,ListNode headB){
         //
         int lenA =length(headA);
