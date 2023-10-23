@@ -1,9 +1,12 @@
 class Solution {
     public List<Integer> goodDaysToRobBank(int[] arr, int time) {
         //Broute Force ::
-        // TC : O(n*t)   SC: O(1)+O(k) k-- good days count:
+        // TC : O(n*t)  
+        // SC: O(1)+O(k) k-- good days count:
 
         //Optimal ::
+        // TC : O(n)+O(n) ~ O(n)
+        // SC : O(n)+O(n) ~ O(n) + O(k)
         int len =arr.length;
         int increase[] = new int[len];
         int decrease[] = new int[len];
