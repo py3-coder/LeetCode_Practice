@@ -5,8 +5,10 @@ class Solution {
         //return solveRec(prices,0,0);
 
         //Memoisation:)
-        Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
-        return solveMemo(prices,0,0);
+        // Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
+        // return solveMemo(prices,0,0);
+
+        return solveTab(prices);
     }
     private int solveRec(int[] prices ,int indx,int buy){
         //Base Case ::
@@ -33,5 +35,23 @@ class Solution {
             profit =Math.max(prices[indx]+solveMemo(prices,indx+2,0),solveMemo(prices,indx+1,1));
         }
         return memo[indx][buy]=profit;
-    }
+    } 
+    private int solveTab(int[] prices){
+        //Tabulation::)
+        int n =prices.length;
+        int tab[][] = new int[n+2][2];
+
+        for(int indx=n-1;indx>=0;indx--){
+            for(int j=0;j<=1;j++){
+                if(j==0 ){
+                    tab[indx][j]=Math.max(-prices[indx]+tab[indx+1][1],tab[indx+1][0]);
+                }
+                if(j==1){
+                    tab[indx][j]=Math.max(prices[indx]+tab[indx+2][0],tab[indx+1][1]);
+                }
+            }
+        }
+        return tab[0][0];
+    } 
+    
 }
