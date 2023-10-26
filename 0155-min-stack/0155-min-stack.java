@@ -1,41 +1,44 @@
 class MinStack {
+    //Approch Using 2 stack will maintain a stack for min ele::
+    // TC: O(1)  SC: O(2n)
     Stack<Integer> st;
     Stack<Integer> mini;
     public MinStack() {
-        st=new Stack<>();
+        st =new Stack<>();
         mini=new Stack<>();
     }
     
     public void push(int val) {
-        if(mini.isEmpty() || mini.peek()>val){
+        if(st.isEmpty() || mini.peek()>=val){
+            st.push(val);
             mini.push(val);
         }else{
-            mini.push(mini.peek());
+            st.push(val);
         }
-        st.push(val);
-         
     }
     
     public void pop() {
-        if(st.isEmpty()){
-            return ;
+        int a =st.peek();
+        int b=mini.peek();
+        if(a==b){
+            st.pop();
+            mini.pop();
+        }else{
+            st.pop();
         }
-        st.pop();
-        mini.pop();
     }
     
     public int top() {
-        if(st.isEmpty()){
-            return -1;
-        }
         return st.peek();
     }
     
     public int getMin() {
-        if(st.isEmpty()){
+        if(!mini.isEmpty()){
+            return mini.peek();
+        }else{
             return -1;
         }
-        return mini.peek();
+        
     }
 }
 
