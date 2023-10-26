@@ -11,7 +11,9 @@ class Solution {
         //return solveTab(prices);
 
 
-        return solveTabOpt(prices);
+        //return solveTabOpt(prices);
+
+        return solveTabSpaceOpt(prices);
     }
     private int solveRec(int[] prices ,int indx,int buy){
         //Base Case ::
@@ -67,5 +69,21 @@ class Solution {
         }
         return tab[0][0];
     }
-    
+    private int solveTabSpaceOpt(int[] prices){
+        //Tabulation::) Striver APPROCH::
+        int n =prices.length;
+        int ahead2[]=new int[2];
+        int ahead[] =new int[2];
+        int curr[]  =new int[2];
+
+        for(int indx=n-1;indx>=0;indx--){
+            curr[0]=Math.max(-prices[indx]+ahead[1],ahead[0]);
+            curr[1]=Math.max(prices[indx]+ahead2[0],ahead[1]);
+
+            //Now updated :: ahead2 to ahead2,ahead1 to curr
+            System.arraycopy(ahead,0,ahead2,0,2);
+            System.arraycopy(curr,0,ahead,0,2);
+        }
+        return curr[0];
+    }
 }
