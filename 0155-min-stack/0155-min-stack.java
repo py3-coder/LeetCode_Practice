@@ -1,46 +1,48 @@
 class MinStack {
-    //Approch Using 2 stack will maintain a stack for min ele::
-    // TC: O(1)  SC: O(2n)
-    Stack<Integer> st;
-    Stack<Integer> mini;
+    Stack<Long> st;
+    Long min;
     public MinStack() {
         st =new Stack<>();
-        mini=new Stack<>();
+        min=Long.MAX_VALUE;
     }
     
-    public void push(int val) {
-        if(st.isEmpty() || mini.peek()>=val){
+    public void push(int vl) {
+        Long val =Long.valueOf(vl);
+        if(st.isEmpty()){
             st.push(val);
-            mini.push(val);
+            min=val;
         }else{
-            st.push(val);
-        }
-    }
-    
-    public void pop() {
-        int a =st.peek();
-        int b=mini.peek();
-        if(a==b){
-            st.pop();
-            mini.pop();
-        }else{
-            st.pop();
-        }
-    }
-    
-    public int top() {
-        return st.peek();
-    }
-    
-    public int getMin() {
-        if(!mini.isEmpty()){
-            return mini.peek();
-        }else{
-            return -1;
+            if(min>val){
+                st.push(2*val-min);
+                min =val;
+            }else{
+                st.push(val);
+            }
         }
         
     }
+    
+    public void pop() {
+        long val =st.pop();
+        if(val<min){
+            min=2*min-val;
+        }
+        
+    }
+    
+    public int top() {
+        Long val = st.peek();
+        if(val<min){
+            return min.intValue();
+        }
+        return val.intValue();   
+    }
+    
+    public int getMin() {
+        return  min.intValue();
+    }
 }
+
 
 /**
  * Your MinStack object will be instantiated and called as such:
