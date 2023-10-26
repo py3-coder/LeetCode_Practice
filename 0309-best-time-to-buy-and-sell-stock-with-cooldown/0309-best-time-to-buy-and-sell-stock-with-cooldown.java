@@ -8,7 +8,10 @@ class Solution {
         // Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
         // return solveMemo(prices,0,0);
 
-        return solveTab(prices);
+        //return solveTab(prices);
+
+
+        return solveTabOpt(prices);
     }
     private int solveRec(int[] prices ,int indx,int buy){
         //Base Case ::
@@ -53,5 +56,16 @@ class Solution {
         }
         return tab[0][0];
     } 
+    private int solveTabOpt(int[] prices){
+        //Tabulation::)
+        int n =prices.length;
+        int tab[][] = new int[n+2][2];
+
+        for(int indx=n-1;indx>=0;indx--){
+            tab[indx][0]=Math.max(-prices[indx]+tab[indx+1][1],tab[indx+1][0]);
+            tab[indx][1]=Math.max(prices[indx]+tab[indx+2][0],tab[indx+1][1]);
+        }
+        return tab[0][0];
+    }
     
 }
