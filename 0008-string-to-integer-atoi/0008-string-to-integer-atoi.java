@@ -18,10 +18,11 @@ class Solution {
         int total=0,sign=1;
         int indx=0;
         if(s.length()==0) return 0;
-        
+        s=s.strip();
+        if(s.isEmpty()) return 0;
         
         //whitespace
-        while(s.charAt(indx)==' '&& indx<s.length()) indx++;
+        while(s.charAt(indx)==' ') indx++;
         //-ve ,+ve
         if(s.charAt(indx)=='+' || s.charAt(indx)=='-'){
             sign=s.charAt(indx)=='+'?1:-1;
