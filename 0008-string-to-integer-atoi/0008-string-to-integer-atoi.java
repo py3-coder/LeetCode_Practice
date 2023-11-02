@@ -1,6 +1,6 @@
 class Solution {
     public int myAtoi(String s) {
-        //return iterativeAtoi(s);
+        return iterativeAtoi(s);
         //TC :: O(n)
         //SC: O(1)
         
@@ -11,7 +11,7 @@ class Solution {
         
         //TC : O(n)::
         //SC : O(1) ---> Auxliary Space :: Recursion Stack - O(n)
-        return stringToInt(s,0,0,true,false);
+        //return stringToInt(s,0,0,true,false);
         
     }
     public static int iterativeAtoi(String s){
