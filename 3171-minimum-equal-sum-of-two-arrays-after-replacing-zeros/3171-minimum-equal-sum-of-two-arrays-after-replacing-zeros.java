@@ -1,36 +1,22 @@
 class Solution {
     public long minSum(int[] nums1, int[] nums2) {
-        long sum1 = 0;
-        int zeroes1 = 0;
+        long s1 = 0;
+        int z1 = 0;
         for (int num : nums1) {
-            if (num == 0) {
-                zeroes1++;
-            }
-            sum1 += num;
+            if (num == 0) z1++;
+            s1 += num;
         }
-        long sum2 = 0;
-        int zeroes2 = 0;
+        long s2 = 0;
+        int z2 = 0;
         for (int num : nums2) {
-            if (num == 0) {
-                zeroes2++;
-            }
-            sum2 += num;
+            if (num == 0) z2++;
+            s2 += num;
         }
-
-        if (sum1 + zeroes1 < sum2 + zeroes2) {
-            long temp = sum1;
-            int temp2= zeroes1;
-            sum1 = sum2;
-            sum2 = temp;
-            temp = zeroes1;
-            zeroes1 = zeroes2;
-            zeroes2 = temp2;
-        }
-
-        if (sum1 + zeroes1 > sum2 && zeroes2 == 0) {
-            return -1;
-        }
-
-        return sum1 + zeroes1;
+        long ans=-1;
+        if(z1!=0 && z2!=0) ans= Math.max(s1+z1,s2+z2);
+        else if(z1==0 && z2!=0 && s1>=s2+z2) ans=s1;
+        else if(z1!=0 && z2==0 && s2>=s1+z1) ans=s2;
+        else if(z1==0 && z2==0 && s1==s2) ans=s1;
+        return ans;
     }
 }
