@@ -1,5 +1,6 @@
 class Solution {
     public int subsetXORSum(int[] nums) {
+        //Recursion :: O(2^n)
         return solveRec(nums,0,0);
     }
     public static int solveRec(int[] nums,int indx,int xor){
