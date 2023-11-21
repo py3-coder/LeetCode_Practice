@@ -11,8 +11,7 @@ class Solution {
                     isInserted = true;
                 }
                 mergedIntervals.add(interval);
-                
-            } else {
+             }else {
                 // does intersect
                 if(doesIntersect(merged, interval)) {
                     merged[0] = Math.min(merged[0], interval[0]);
