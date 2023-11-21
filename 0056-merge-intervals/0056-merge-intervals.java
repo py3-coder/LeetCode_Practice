@@ -3,7 +3,7 @@ class Solution {
         int n =arr.length;
         List<int[]> result = new ArrayList<>();
         //Lambda Expresion to sort 2d array based on their first element ..
-        Arrays.sort(arr , (a,b)->Integer.compare(a[0],b[0]));
+        Arrays.sort(arr , (a,b)->(a[0]-b[0]));
         
         //Broute Force Approch :::
 //         for(int i=0;i<n;i++){
