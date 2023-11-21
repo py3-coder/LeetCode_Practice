@@ -13,18 +13,18 @@ class Solution {
     public static int solveRec(int[] nums,int indx){
         if(indx==nums.length-1) return 1;
         if(nums[indx]==0) return 0;
-        
-        int reach =nums[indx]+indx;
         int flag=0;
-        for(int i=indx+1;i<=reach && i<nums.length;i++){
+        for(int i=1;i<=nums[indx] && indx+i<nums.length;i++){
             if(flag==1){
-                break;
+                return 1;
             }
-            flag =Math.max(solveRec(nums,i),flag);
+            flag =Math.max(solveRec(nums,indx+i),flag);
         }
         return flag;
     }
     //Memo ::
+    // TC :O(n^2) 
+    // SC :O(n) +O(n) --Aux space ::
     public static int solveMemo(int[] nums,int indx){
         if(indx==nums.length-1) return 1;
         if(nums[indx]==0) return 0;
