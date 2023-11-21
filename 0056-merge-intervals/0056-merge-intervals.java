@@ -29,8 +29,9 @@ class Solution {
         // why 2n is just we are checking every pair 2 time do run you will get it..
         //SC : O(n) --> To return result--
         
-        
+    
         // Lets Optimise :::
+        // 2n --> n {single traversal}
         for(int i=0;i<n;i++){
             if(result.isEmpty() || result.get(result.size()-1)[1]<arr[i][0]){
                 int[] temp ={arr[i][0],arr[i][1]};
@@ -40,5 +41,8 @@ class Solution {
             }
         }
         return result.toArray(new int[result.size()-1][]);
+        
+        //TC : O(nlogn) +O(n) 
+        //SC : O(n)
     }
 }
