@@ -3,11 +3,11 @@ class Solution {
     public boolean canJump(int[] nums) {
         if(nums.length==1) return true;
         //return solveRec(nums,0)==0?false:true;
+        // memo =new int[nums.length];
+        // Arrays.fill(memo,-1);
+        // return solveMemo(nums,0)==0?false:true;
         
-        memo =new int[nums.length];
-        Arrays.fill(memo,-1);
-        
-        return solveMemo(nums,0)==0?false:true;
+        return solveGreedy(nums);
     }
     //Recursion :)::
     public static int solveRec(int[] nums,int indx){
@@ -42,5 +42,14 @@ class Solution {
         return memo[indx]=flag;
     }
     
-    
+    //Greedy Approch ::
+    public static boolean solveGreedy(int[] nums){
+        if(nums.length==1) return true;
+        int reach =0;
+        for(int i=0;i<nums.length;i++){
+            if(reach<i) return false;
+            reach =Math.max(nums[i]+i,reach);
+        }
+        return true;
+    }
 }
