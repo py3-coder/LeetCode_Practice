@@ -43,7 +43,8 @@ class Solution {
 //         return res;
         
         //Using Single Stack ::Iterative ::
-        
+        //TC :O(n)
+        //SC :O(n)
         Stack<TreeNode> st = new Stack<>();
         TreeNode curr =root;
         while(!st.isEmpty() || curr!=null){
@@ -51,8 +52,7 @@ class Solution {
                 st.push(curr);
                 curr=curr.left;
             }else{
-                 TreeNode temp=st.peek();
-                 temp=temp.right;
+                 TreeNode temp=st.peek().right;
                 if(temp==null){
                     temp =st.peek();
                     st.pop();
