@@ -14,7 +14,7 @@
  * }
  */
 class Solution {
-    /*public void bfs(TreeNode root , List<List<Integer>> res,int len){
+    public void bfs(TreeNode root , List<List<Integer>> res,int len){
         if(root==null) return;
         if(len>=res.size()){
             res.add(new ArrayList<Integer>());
@@ -24,13 +24,15 @@ class Solution {
         bfs(root.right,res,len+1);
     }
     public List<List<Integer>> levelOrder(TreeNode root) {
+        //1. Recursion::
         List<List<Integer>> res = new ArrayList<>();
-        bfs(root,res,0);
-        return res;
+        //bfs(root,res,0);
+        //return res;
+        
+        //2. Iterative ::
+        return level(root ,res);
     }
-    */
-    public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> res = new ArrayList<>();
+    public static List<List<Integer>> level(TreeNode root,List<List<Integer>> res) {
         if(root==null)  return res;
         Queue<TreeNode> que = new LinkedList<>();
         que.add(root);
