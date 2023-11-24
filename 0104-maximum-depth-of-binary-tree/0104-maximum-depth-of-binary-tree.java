@@ -18,12 +18,12 @@ class Solution {
         //1.Recursive ::
         //TC : O(n)
         //SC :O(1)+O(n) --aux space :-
-        // return getheight(root);
+        return getheight(root);
         
         //Iterative ::
         //TC :O(n)
         //SC :O(n)
-        return getHeight(root);
+        //return getHeight(root);
     }
     public static int getheight(TreeNode root){
         //base case ::
