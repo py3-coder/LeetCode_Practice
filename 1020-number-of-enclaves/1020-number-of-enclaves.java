@@ -6,6 +6,7 @@ class Solution {
         int[][]  vis =new int[n][m];
         
         //Boundary DFS :::
+        // Can be done with BFS too:::
         for(int j=0;j<m;j++){
             if(board[0][j]==1 && vis[0][j]!=1){
                 dfs(0,j,vis,board);
