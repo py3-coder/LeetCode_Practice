@@ -47,38 +47,3 @@ class Solution {
         }
     }
 }
-
-//     public int minimumEffortPath(int[][] heights) {
-//         PriorityQueue<Cell>pq=new PriorityQueue<>((x,y)->x.dist-y.dist);
-//         int row=heights.length;
-//         int col=heights[0].length;
-//         int diff[][]=new int[row][col];
-//         for(int arr[]:diff){
-//             Arrays.fill(arr,Integer.MAX_VALUE);
-//         }
-//         diff[0][0]=0;
-//         pq.add(new Cell(0,0,0));
-//         while(!pq.isEmpty()){
-//             Cell temp=pq.remove();
-//             int distance=temp.dist;
-//             int r=temp.row;
-//             int c=temp.col;
-//             int rp[]={-1,1,0,0};
-//             int cp[]={0,0,-1,1};
-           
-//             if(r==row-1&&c==col-1)return distance;
-//             for(int i=0;i<4;i++){
-//                 int r1=r+rp[i];
-//                 int c1=c+cp[i];
-//                 if(r1>=0&&r1<row&&c1>=0&&c1<col){
-//                     int minEff=Math.max(Math.abs(heights[r1][c1]-heights[r][c]),distance);
-//                     if(minEff<diff[r1][c1]){
-//                         diff[r1][c1]=minEff;
-//                         pq.add(new Cell(r1,c1,minEff));
-//                     }
-//                 }
-
-//             }
-//         }
-//         return -1;
-//     }
