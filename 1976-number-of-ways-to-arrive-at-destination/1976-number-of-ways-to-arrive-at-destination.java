@@ -13,7 +13,7 @@ class Solution {
         long[] distance = new long[n];
         int[] ways = new int[n];
         for(int i=0;i<n;i++){
-            distance[i] = Long.MAX_VALUE / 2;
+            distance[i] = Long.MAX_VALUE;
             ways[i] = 0;
         }
         distance[0] = 0;
