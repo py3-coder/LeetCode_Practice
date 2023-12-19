@@ -19,7 +19,6 @@ class Solution {
                         sum+=img[nrow][ncol];
                     }
                 }
-                
                 res[i][j]=sum/cnt;
             }
         }
