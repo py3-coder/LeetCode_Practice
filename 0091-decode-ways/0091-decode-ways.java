@@ -14,25 +14,17 @@ class Solution {
         if(map.containsKey(indx)){
             return map.get(indx);
         }
-        if(indx+1<s.length()){
-            String str =s.substring(indx,indx+2);
-            int val =Integer.valueOf(str);
-            if(val<=26){
-                int waycnt =way(s,indx+1,map)+way(s,indx+2,map);
-                map.put(indx,waycnt);
-                return waycnt;
+        if(Integer.valueOf(s.substring(indx,indx+2))<=26){
+            int waycnt =way(s,indx+1,map)+way(s,indx+2,map);
+            map.put(indx,waycnt);
+            return waycnt;
                
-            }else{
-                int waycnt =way(s,indx+1,map);
-                map.put(indx,waycnt);
-                return waycnt;
-            }
         }else{
-            String str =s.substring(indx,indx+1);
             int waycnt =way(s,indx+1,map);
             map.put(indx,waycnt);
             return waycnt;
         }
+        
     }
     
 }
