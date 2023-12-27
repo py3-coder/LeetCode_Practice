@@ -10,14 +10,27 @@ class Solution {
             adj.get(edges[i][1]).add(edges[i][0]);
         }
         int[]  vis =new int[n];
-        dfs(source,vis,adj);
-        if(vis[destination]!=1){
-            return false;
+        // dfs(source,vis,adj);
+        // if(vis[destination]!=1){
+        //     return false;
+        // }
+        // return true;
+        
+        //BFS ::
+        vis[source]=1;
+        Queue<Integer> que = new LinkedList<>();
+        que.offer(source);
+        while(!que.isEmpty()){
+            int currNode =que.poll();
+            if(currNode==destination) return true;
+            for(int adjNode : adj.get(currNode)){
+                if(vis[adjNode]!=1){
+                    vis[adjNode]=1;
+                    que.offer(adjNode);
+                }
+            }
         }
-        return true;
-        
-        
-        
+        return false;
         
     }
     public void dfs(int node,int[] vis ,List<List<Integer>> adj){
