@@ -1,5 +1,7 @@
 class Solution {
     public int findContentChildren(int[] g, int[] s) {
+        //TC :: O(nlogn)
+        //SC :: O(1)
         int glen =g.length;
         int slen =s.length;
         Arrays.sort(g);
