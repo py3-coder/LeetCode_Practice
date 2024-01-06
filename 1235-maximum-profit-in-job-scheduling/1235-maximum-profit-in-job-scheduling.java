@@ -13,23 +13,6 @@ class Solution {
         map =new HashMap<>();
         return solveMemoOptimised(0,triple,n);
     }
-    // public static int solveMemo(int indx,int lasttime,List<Triple> tp){
-    //     //Base Case::
-    //     if(indx == tp.size()) return 0;
-    //     // Choices we have ::: pick or not pick
-    //     String key = indx+"-"+lasttime;
-    //     if(map.containsKey(key)){
-    //         return map.get(key);
-    //     }
-    //     int pick =0,notPick=0;
-    //     // need to optimise --> TLE ::
-    //     if(lasttime<=tp.get(indx).start){
-    //         pick =tp.get(indx).profit+solveMemo(indx+1,tp.get(indx).end,tp);
-    //     }
-    //     notPick =solveMemo(indx+1,lasttime,tp);
-    //     map.put(key,Math.max(pick,notPick));
-    //     return Math.max(pick,notPick);
-    // }
     public static int solveMemoOptimised(int indx,List<Triple> tp,int n){
         //Base Case::
         if(indx == n) return 0;
@@ -46,6 +29,24 @@ class Solution {
         return Math.max(pick,notPick);
         
     }
+    // Previous Approch : getting tle ::
+     // public static int solveMemo(int indx,int lasttime,List<Triple> tp){
+    //     //Base Case::
+    //     if(indx == tp.size()) return 0;
+    //     // Choices we have ::: pick or not pick
+    //     String key = indx+"-"+lasttime;
+    //     if(map.containsKey(key)){
+    //         return map.get(key);
+    //     }
+    //     int pick =0,notPick=0;
+    //     // need to optimise --> TLE ::
+    //     if(lasttime<=tp.get(indx).start){
+    //         pick =tp.get(indx).profit+solveMemo(indx+1,tp.get(indx).end,tp);
+    //     }
+    //     notPick =solveMemo(indx+1,lasttime,tp);
+    //     map.put(key,Math.max(pick,notPick));
+    //     return Math.max(pick,notPick);
+    // }
     public static int getNextIndx(List<Triple> tp,int indx,int n){
         int l=indx+1;
         int h=n-1;
