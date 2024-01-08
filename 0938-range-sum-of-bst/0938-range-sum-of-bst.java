@@ -26,8 +26,8 @@ class Solution {
         if(root.val<=high && root.val>=low){
                 sum+=root.val;
         }
-        inorder(root.left,low,high);
-        inorder(root.right,low,high);
+        if(root.val>low) inorder(root.left,low,high);
+        if(root.val<high)inorder(root.right,low,high);
         
     }
 }
