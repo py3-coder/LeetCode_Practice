@@ -53,7 +53,7 @@ class Solution {
         return cnt;
         
     }
-    public static void traversal(HashMap<TreeNode,TreeNode> map,TreeNode root, TreeNode prev,int start){
+    public static void traversal(HashMap<TreeNode,TreeNode> map,TreeNode root,TreeNode prev,int start){
         if(root==null) return;
         
         if(root.val == start){
