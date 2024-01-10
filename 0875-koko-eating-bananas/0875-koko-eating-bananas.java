@@ -1,14 +1,14 @@
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
-        int low=1;
-        int  high=Integer.MIN_VALUE;
-        for(int val:piles){
-            high =Math.max(val,high);
+
+        int low =0;
+        int high =Integer.MIN_VALUE;
+        for(int ele: piles){
+            high=Math.max(ele,high);
         }
         while(low<=high){
             int mid =low+(high-low)/2;
-            int ans =check(mid,piles);
-            if(ans<=h){
+            if(isPossible(piles,mid,h)){
                 high=mid-1;
             }else{
                 low=mid+1;
@@ -16,11 +16,11 @@ class Solution {
         }
         return low;
     }
-    public static int check(int mid,int[] arr){
-        int ans=0;
-        for(int val:arr){
-            ans+=Math.ceil((double)(val) /(double)(mid));
+    public static boolean isPossible(int[] piles,int rate,int h){
+        int val=0;
+        for(int ele:piles){
+            val+=Math.ceil((double)(ele) /(double)(rate));
         }
-        return ans;
+        return (val<=h)?true:false;
     }
 }
