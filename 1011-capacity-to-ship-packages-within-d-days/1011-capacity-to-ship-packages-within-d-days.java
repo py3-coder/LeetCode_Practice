@@ -1,39 +1,35 @@
 class Solution {
     public int shipWithinDays(int[] weights, int days) {
-        int max =0;
-        int sum =0;
-        for(int val:weights){
-            sum +=val;
-            max = Math.max(max,val);
+        //Broute Force Approch :: Apply Linear Search:)
+        // TC : O(log)*O(n) ~ O(nlogn)
+        
+        int low =Integer.MIN_VALUE;
+        int high=0;
+        for(int ele:weights){
+            low =Math.max(low,ele);
+            high+=ele;
         }
-        if(weights.length == days){
-            return max;
-        }
-        int lo =max;
-        int hi =sum;
-        int ans =0;
-        while(lo<=hi){
-            int mid = lo +(hi-lo)/2;
-            if(isPossible(weights,mid,days)==true){
-                ans = mid;
-                hi = mid-1;
+        while(low<=high){
+            int mid =low+(high-low)/2;
+            if(isPossible(weights,mid,days)){
+                high=mid-1;
             }else{
-                lo =mid+1;
+                low=mid+1;
             }
         }
-        return ans;
+        return low;
     }
-    public static boolean isPossible(int[] wt,int mid , int days){
-        int d =1;
-        int sum =0;
-        for(int i=0;i<wt.length;i++){
-            sum +=wt[i];
-            
-            if(sum>mid){
-                d++;
-                sum=wt[i];
+    public static boolean isPossible(int[] nums,int capacity,int days){
+        int cntday=1;
+        int weight=nums[0];
+        for(int i=1;i<nums.length;i++){
+            if(weight+nums[i]<=capacity){
+                weight+=nums[i];
+            }else{
+                cntday++;
+                weight=nums[i];
             }
         }
-        return d<=days;
+        return (cntday<=days)?true:false;
     }
 }
