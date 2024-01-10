@@ -35,6 +35,7 @@ class Solution {
             cnt =Math.max(cnt,curr.steps);
             TreeNode left =node.left;
             TreeNode right =node.right;
+            
             if(left!=null && vis[left.val]!=1 ){
                 que.offer(new Pair(left,(curr.steps+1)));
                 vis[left.val]=1;
