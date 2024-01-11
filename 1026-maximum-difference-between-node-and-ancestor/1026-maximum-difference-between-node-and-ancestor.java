@@ -18,12 +18,11 @@ class Solution {
     public int maxAncestorDiff(TreeNode root) {
         if(root==null) return 0;
         maxi=0;
-        List<List<Integer>> paths =new ArrayList<>();
-        path(root,paths,new ArrayList<>());
+        path(root,new ArrayList<>());
         return maxi;
         
     }
-    public static void path(TreeNode root,List<List<Integer>> paths ,List<Integer> temp){
+    public static void path(TreeNode root,List<Integer> temp){
         //Base Case ::
         if(root==null){
             return;
@@ -38,8 +37,8 @@ class Solution {
                 }
             }
         }
-        path(root.left,paths,temp);
-        path(root.right,paths,temp);
+        path(root.left,temp);
+        path(root.right,temp);
         temp.remove(temp.size()-1);
     }
 }
