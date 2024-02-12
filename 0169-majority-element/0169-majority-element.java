@@ -1,18 +1,16 @@
 class Solution {
     public int majorityElement(int[] nums) {
-        //Moore's Voting Algo..
         int ele=0;
-        int count=0;
+        int cnt=0;
         for(int i=0;i<nums.length;i++){
-            if(count==0){
-                count=1;
+            if(cnt==0){
+                cnt++;
                 ele=nums[i];
-            }else if(nums[i]==ele) count++;
+            }else if(ele==nums[i])cnt++;
             else{
-                count--;
+                cnt--;
             }
         }
-        return ele;  
-        //he majority element always exists in the array. No need to check..
+        return ele;
     }
 }
