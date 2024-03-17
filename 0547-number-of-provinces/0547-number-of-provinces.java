@@ -13,22 +13,28 @@ class Solution {
                 }
             }
         }
+        
         int cnt=0;
-        int[] vis = new int[n];
+        Queue<Integer> que = new LinkedList<>();
+        Set<Integer> vis = new HashSet<>();
+        
         for(int i=0;i<n;i++){
-            if(vis[i]!=1){
+            if(!vis.contains(i)){
+                que.offer(i);
                 cnt++;
-                dfs(i,vis,adj);
+            }
+            while(!que.isEmpty()){
+                int node = que.poll();
+                
+                for(int nod : adj.get(node)){
+                    if(!vis.contains(nod)){
+                        vis.add(nod);
+                        que.offer(nod);
+                    }
+                }
             }
         }
+        
         return cnt;
-    }
-    public void dfs(int node,int[] vis,List<List<Integer>> adj){
-        vis[node]=1;
-        for(int currNode :adj.get(node)){
-            if(vis[currNode]!=1){
-                dfs(currNode,vis,adj);
-            }
-        }
     }
 }
