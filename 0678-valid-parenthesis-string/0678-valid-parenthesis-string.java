@@ -1,5 +1,8 @@
 class Solution {
     public boolean checkValidString(String s) {
+        // Idea Not My Own Copied ::)
+        // TC : O(n)+O(m)
+        // SC: O(n)+O(m)
         Stack<Integer> left=new Stack<>();
         Stack<Integer> star =new Stack<>();
         int i=0;
