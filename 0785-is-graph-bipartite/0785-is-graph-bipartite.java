@@ -4,16 +4,15 @@ class Solution {
         int[] color = new int[n];
         Arrays.fill(color,-1);
        
-        int col =0;
         // Connected Component Check::
         for(int i=0;i<n;i++){
             if(color[i]==-1){
-                if(bfs(i,graph,color)==false){
-                    return false;
-                }
-                // if(dfs(i,col,graph,color)==false){
+                // if(bfs(i,graph,color)==false){
                 //     return false;
                 // }
+                if(dfs(i,0,graph,color)==false){
+                    return false;
+                }
             }
         }
         return true;
@@ -51,12 +50,10 @@ class Solution {
         col[node] = color;
         
         for(int nodes : graph[node]){
-            if(col[nodes]==-1 && color == 0){
-                col[nodes]=1;
-                return dfs(nodes,1,graph,col);
-            }else if(col[nodes]==-1 && color == 1){
-                col[nodes]=0;
-                return dfs(nodes,0,graph,col);
+            if(col[nodes]==-1 ){
+                if(dfs(nodes,1-color,graph,col)==false){
+                    return false;
+                }
             }else {
                 if(col[nodes] == color){
                     return false;
