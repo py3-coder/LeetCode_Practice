@@ -1,22 +1,37 @@
 class Solution {
     public int[][] floodFill(int[][] image, int sr, int sc, int color) {
-        int mat[][] = image;
-        int initC =image[sr][sc];
-        int row[] ={0,1,0,-1};
-        int col[] ={1,0,-1,0};
-        dfs(sr,sc,initC,color,mat,image,row,col);
-        return mat;
+        int n = image.length;
+        int m =image[0].length;
+        
+        int[][] vis = new int[n][m];
+        Arrays.stream(vis).forEach(a -> Arrays.fill(a,-1));
+        
+        dfs(sr,sc,color,vis,image);
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(vis[i][j]!=color){
+                    vis[i][j] =image[i][j];
+                }
+            }
+        }
+        return vis;
+        
+        
     }
-    public static void dfs(int sr,int sc,int initC,int fc,int[][] mat,int[][] image,int[] row,int[] col){
-        mat[sr][sc] =fc;
+    public void dfs(int row,int col,int c,int[][] vis,int[][] image){
+        vis[row][col]=c;
+        
+        int[] dx ={0,1,0,-1};
+        int[] dy ={1,0,-1,0};
         
         for(int i=0;i<4;i++){
-            int newR =row[i]+sr;
-            int newC =col[i]+sc;
-            if(newR<mat.length && newR>=0 && newC<mat[0].length && newC>=0 && image[newR][newC]==initC && mat[newR][newC]!=fc){
-                dfs(newR,newC,initC,fc,mat,image,row,col);
+            int nrow =row+dx[i];
+            int ncol =col+dy[i];
+            
+            if(nrow<image.length && ncol<image[0].length && nrow>=0 && ncol>=0 && image[nrow][ncol]== image[row][col] && vis[nrow][ncol]!=c){
+                dfs(nrow,ncol,c,vis,image);
             }
         }
     }
-    
 }
