@@ -1,40 +1,38 @@
 class Solution {
     public int findCircleNum(int[][] isConnected) {
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
         int n = isConnected.length;
-        List<List<Integer>> adj = new ArrayList<>();
+        int m =isConnected[0].length;
         for(int i=0;i<n;i++){
             adj.add(new ArrayList<>());
         }
+        
         for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                if(isConnected[i][j]==1 && i!=j){
-                   adj.get(i).add(j);
-                   adj.get(j).add(i);
+            for(int j=0;j<m;j++){
+                if(i!=j && isConnected[i][j]==1){
+                    adj.get(i).add(j);
+                    //adj.get(j).add(i);
                 }
             }
         }
-        
+        int[] vis = new int[n+1];
         int cnt=0;
-        Queue<Integer> que = new LinkedList<>();
-        Set<Integer> vis = new HashSet<>();
-        
         for(int i=0;i<n;i++){
-            if(!vis.contains(i)){
-                que.offer(i);
+            if(vis[i]!=1){
+                dfs(i,vis,adj);
                 cnt++;
             }
-            while(!que.isEmpty()){
-                int node = que.poll();
-                
-                for(int nod : adj.get(node)){
-                    if(!vis.contains(nod)){
-                        vis.add(nod);
-                        que.offer(nod);
-                    }
-                }
+        }
+        //System.out.println(adj);
+        return cnt;
+    }
+    public void dfs(int node,int[] vis,ArrayList<ArrayList<Integer>> adj){
+        vis[node]=1;
+        
+        for(int nodes : adj.get(node)){
+            if(vis[nodes]!=1){
+                dfs(nodes,vis,adj);
             }
         }
-        
-        return cnt;
     }
 }
