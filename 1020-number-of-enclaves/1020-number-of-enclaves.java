@@ -1,55 +1,60 @@
 class Solution {
-    public int numEnclaves(int[][] board) {
-        int n =board.length;
-        int m=board[0].length;
+    public int numEnclaves(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
         
-        int[][]  vis =new int[n][m];
+        int[][] vis = new int[n][m];
         
-        //Boundary DFS :::
-        // Can be done with BFS too:::
-        for(int j=0;j<m;j++){
-            if(board[0][j]==1 && vis[0][j]!=1){
-                dfs(0,j,vis,board);
-            }
-            if(board[n-1][j]==1 && vis[n-1][j]!=1){
-                dfs(n-1,j,vis,board);
+        // Topleft->right
+        for(int i=0;i<m;i++){
+            if(grid[0][i]==1 && vis[0][i]!=1){
+                dfs(0,i,vis,grid);
             }
         }
+        //Topleft -> bottom left
+        for(int i=1;i<n;i++){
+            if(grid[i][0]==1 && vis[i][0]!=1){
+                dfs(i,0,vis,grid);
+            }
+        }
+        // bootom left -> bottom right
+        for(int i=0;i<m;i++){
+            if(grid[n-1][i]==1 && vis[n-1][i]!=1){
+                dfs(n-1,i,vis,grid);
+            }
+        }
+        
+        // Top right -> bottom right
         for(int i=0;i<n;i++){
-            if(board[i][0]==1 && vis[i][0]!=1){
-                dfs(i,0,vis,board);
-            }
-            if(board[i][m-1]==1 && vis[i][m-1]!=1){
-                dfs(i,m-1,vis,board);
+            if(grid[i][m-1]==1 && vis[i][m-1]!=1){
+                dfs(i,m-1,vis,grid);
             }
         }
+        
         int cnt=0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                if(vis[i][j]==0 && board[i][j]==1){
+                if(vis[i][j]!=1 && grid[i][j]==1 ){
                     cnt++;
                 }
             }
         }
         return cnt;
     }
-    public static void dfs(int row,int col ,int[][] vis,int[][] board){
+    
+    public void dfs(int row,int col ,int[][] vis,int[][] grid){
         vis[row][col]=1;
         
-        int n =board.length;
-        int m=board[0].length;
-        
-        int drow[] ={0,1,0,-1};
-        int dcol[] ={1,0,-1,0};
+        int[] dx ={1,0,-1,0};
+        int[] dy ={0,1,0,-1};
         
         for(int i=0;i<4;i++){
-            int nrow =row+drow[i];
-            int ncol =col+dcol[i];
+            int nr =row+dx[i];
+            int nc =col+dy[i];
             
-            if(nrow<n && nrow>=0 && ncol>=0 && ncol<m && vis[nrow][ncol]!=1 && board[nrow][ncol]==1){
-                dfs(nrow,ncol,vis,board);
+            if(nr<grid.length && nr>=0 && nc<grid[0].length && nc>=0 && grid[nr][nc]==1 && vis[nr][nc]!=1){
+                dfs(nr,nc,vis,grid);
             }
         }
     }
-    
 }
