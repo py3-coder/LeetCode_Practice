@@ -39,9 +39,6 @@ class Solution {
                 if(vis[i][j]!=1 && board[i][j]=='O'){
                     board[i][j]='X';
                 }
-                if(board[i][j]=='O' && vis[i][j]==0){
-                    board[i][j]='X';
-                }
             }
         }
     }
