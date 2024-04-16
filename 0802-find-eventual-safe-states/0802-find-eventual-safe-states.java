@@ -42,8 +42,7 @@ class Solution {
                 }
             }
             else if(pathvis[ele]==1){
-                    //check[ele]=0;
-                    return true;
+                return true;
             }
         }
         pathvis[node]=0;
