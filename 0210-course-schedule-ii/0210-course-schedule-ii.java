@@ -16,7 +16,6 @@ class Solution {
                 que.offer(i);
             }
         }
-        
         while(!que.isEmpty()){
             int nod = que.poll();
             lis.add(nod);
@@ -36,7 +35,6 @@ class Solution {
         for(int ele:lis){
             temp[k--]=ele;
         }
-        
         return temp;
     }
 }
