@@ -1,37 +1,49 @@
 class Solution {
     public List<Integer> eventualSafeNodes(int[][] graph) {
-        int n =graph.length;
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        int v = graph.length;
+        for(int i=0;i<v;i++){
+            adj.add(new ArrayList<>());
+        }
         
-        int[] vis = new int[n];
-        int[] pathvis = new int[n];
-        int[] check = new int[n];
+        for(int i=0;i<v;i++){
+            for(int j=0;j<graph[i].length;j++){
+                adj.get(i).add(graph[i][j]);
+            }
+        }
+        //System.out.println(adj);
+        int[] vis = new int[v];
+        int[] pathvis = new int[v];
+        int[] check = new int[v];
         
-        for(int i=0;i<n;i++){
+        for(int i=0;i<v;i++){
             if(vis[i]!=1){
-                dfs(i,vis,pathvis,graph,check);
+                dfs(i,vis,pathvis,check,adj);
             }
         }
-        List<Integer> res = new ArrayList<>();
-        for(int i=0;i<n;i++){
+        
+        List<Integer> safe = new ArrayList<>();
+        for(int i=0;i<v;i++){
             if(check[i]==1){
-                res.add(i);
+                safe.add(i);
             }
         }
-        return res;
+        return safe;
     }
-    public static boolean dfs(int node,int[] vis,int[] pathvis,int[][] graph,int[] check){
+    public static boolean dfs(int node,int[] vis,int[] pathvis,int[] check,ArrayList<ArrayList<Integer>> adj){
         vis[node]=1;
         pathvis[node]=1;
         check[node]=0;
         
-        for(int currNode : graph[node]){
-            if(vis[currNode]!=1 && pathvis[currNode]!=1){
-                if(dfs(currNode,vis,pathvis,graph,check)==true){
+        for(int ele : adj.get(node)){
+            if(vis[ele]!=1 && pathvis[ele]!=1){
+                if(dfs(ele,vis,pathvis,check,adj)==true){
                     return true;
                 }
-            }else if(pathvis[currNode]==1){
-                check[currNode]=0;
-                return true;
+            }
+            else if(pathvis[ele]==1){
+                    //check[ele]=0;
+                    return true;
             }
         }
         pathvis[node]=0;
