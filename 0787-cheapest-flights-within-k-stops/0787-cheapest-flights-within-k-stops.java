@@ -1,60 +1,60 @@
 class Solution {
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
-        // BFS Dijkstra  Algo :: Modified :::
+        ArrayList<ArrayList<ArrayList<Integer>>> adj = new ArrayList<>();
         
-        // Let's Make  Graph ::)
-        List<List<Pair>> adj =new ArrayList<>();
         for(int i=0;i<n;i++){
             adj.add(new ArrayList<>());
         }
-        for(int i=0;i<flights.length;i++){
-            int[] temp =flights[i];
-            adj.get(temp[0]).add(new Pair(temp[1],temp[2]));
+        for(int[] edges : flights){
+            int u = edges[0];
+            int v = edges[1];
+            int cost =edges[2];
+            
+            adj.get(u).add(new ArrayList<>(Arrays.asList(v,cost)));
         }
-        int dist[] =new int[n];
-        Arrays.fill(dist,(int)1e9);
-        dist[src]=0;
-        PriorityQueue<Triple> pq =new PriorityQueue<>((a,b)->(a.stop-b.stop));
-        pq.offer(new Triple(0,src,0));
+        int[] dist = new int[n];
+        Arrays.fill(dist,(int)1e6);
+        dist[src] =0;
+        
+        PriorityQueue<Triple> pq = new PriorityQueue<>((a,b)->(a.stop==b.stop)?(a.cost-b.cost):(a.stop-b.stop));
+       
+        pq.offer(new Triple(src,0,0));
         
         while(!pq.isEmpty()){
-            int step = pq.peek().stop;
-            int node =pq.peek().node;
-            int dcost =pq.peek().dist;
+            Triple tp = pq.peek();
             pq.poll();
-            if(step > k) continue;;
             
-            for(Pair curr : adj.get(node)){
-                int currNode =curr.node;
-                int cost =curr.cost;
-                
-                if(dcost+cost<dist[currNode] && step<=k){
-                    dist[currNode]=dcost+cost;
-                    pq.offer(new Triple(step+1,currNode,dcost+cost));
-                }   
+            int currNode = tp.node;
+            int currCost =tp.cost;
+            int currStop =tp.stop;
+            
+            if( currStop>k ){
+                continue;
+            }
+            
+            for(ArrayList<Integer> list :adj.get(currNode)){
+                int newNode =list.get(0);
+                int costtoReach =list.get(1);
+                if(dist[newNode]> currCost+costtoReach && currStop<=k){
+                    dist[newNode] =currCost+costtoReach;
+                    pq.offer(new Triple(newNode ,dist[newNode] ,currStop+1));
+                }
             }
         }
-        if(dist[dst]==(int)1e9){
+        if(dist[dst]==(int)1e6){
             return -1;
         }
         return dist[dst];
     }
-    static public class Triple{
-        int stop;
-        int node;
-        int dist;
-        Triple(int _stop,int _node,int _dist){
-            this.stop =_stop;
-            this.node=_node;
-            this.dist=_dist;
-        }
-    }
-    public class Pair{
+    public class Triple{
         int node;
         int cost;
-        Pair(int _node,int _cost){
-            this.node =_node;
-            this.cost =_cost;
+        int stop;
+        
+        Triple(int _n,int _c,int _s){
+            this.node =_n;
+            this.cost =_c;
+            this.stop =_s;
         }
     }
 }
