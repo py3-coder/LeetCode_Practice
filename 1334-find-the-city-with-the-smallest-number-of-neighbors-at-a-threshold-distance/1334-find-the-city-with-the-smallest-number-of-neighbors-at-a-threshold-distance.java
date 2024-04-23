@@ -1,6 +1,6 @@
 class Solution {
     public int findTheCity(int n, int[][] edges, int distanceThreshold) {
-        // Lets Implement Floyd Warshall ::
+         // Lets Implement Floyd Warshall ::
         int[][] dist =new int[n][n];
         Arrays.stream(dist).forEach(a->Arrays.fill(a,(int)1e9));
         for(int i=0;i<edges.length;i++){
