@@ -1,7 +1,6 @@
 class Solution {
     public int makeConnected(int n, int[][] connections) {
-        
-        DisjointSet ds =new DisjointSet(n);
+         DisjointSet ds =new DisjointSet(n);
         
         int cntExtraEdge=0;
         int cntdissConnected =0;
@@ -11,7 +10,7 @@ class Solution {
             int v =connections[i][1];
             
             if(ds.findPar(u) != ds.findPar(v)){
-                ds.unionBySize(u,v);
+                ds.unionByRank(u,v);
             }else{
                 cntExtraEdge++;
             }
@@ -25,58 +24,63 @@ class Solution {
             return res;
         }
         return -1;
-        
     }
 }
+
 class DisjointSet{
-    List<Integer> size = new ArrayList<>();
-    List<Integer> rank = new ArrayList<>();
-    List<Integer> parent =new ArrayList<>();
+    ArrayList<Integer> rank ;
+    ArrayList<Integer> parent;
+    ArrayList<Integer> size;
     
-    public DisjointSet(int n){
-        for(int i=0;i<=n;i++){
-            rank.add(0);
-            size.add(1);
+    
+    DisjointSet(int n){
+        rank = new ArrayList<>();
+        parent = new ArrayList<>();
+        size = new ArrayList<>();
+        for(int i=0;i<n;i++){
+            rank.add(1);
             parent.add(i);
+            size.add(1);
         }
     }
+    
     
     public int findPar(int node){
-        if(parent.get(node)==node){
+        if(parent.get(node) == node){
             return node;
         }
-        int par =findPar(parent.get(node));
+        int par = findPar(parent.get(node));
+        //path compression ::
         parent.set(node,par);
-        return parent.get(par);
-    }
-    public void unionByRank(int u,int v){
-        int ulp_u =findPar(u);
-        int ulp_v =findPar(v);
-        
-        if(ulp_u == ulp_v) return ;
-        
-        if(rank.get(ulp_u)>rank.get(ulp_v)){
-            parent.set(ulp_v,ulp_u);
-        }else if(rank.get(ulp_u)<rank.get(ulp_v)){
-            parent.set(ulp_u,ulp_v);
-        }else{
-            parent.set(ulp_v,ulp_u);
-            rank.set(ulp_u,rank.get(ulp_u)+1);
-        }
+        return parent.get(node);
     }
     
     public void unionBySize(int u,int v){
-        int ulp_u =findPar(u);
-        int ulp_v =findPar(v);
+        int utp_u = findPar(u);
+        int utp_v = findPar(v);
         
-        if(ulp_u == ulp_v) return ; 
-        
-        if(size.get(ulp_u)>size.get(ulp_v)){
-            parent.set(ulp_v,ulp_u);
-            size.set(ulp_u,size.get(ulp_u)+size.get(ulp_v));
+        if(utp_u == utp_v) return ;
+        if(size.get(utp_u)>size.get(utp_v)){
+            parent.set(utp_v, utp_u);
+            size.set(utp_u,size.get(utp_u)+size.get(utp_v));
         }else{
-            parent.set(ulp_u,ulp_v);
-            size.set(ulp_v,size.get(ulp_u)+size.get(ulp_v));
+            parent.set(utp_v, utp_u);
+            size.set(utp_u,size.get(utp_u)+size.get(utp_v));
+        }
+    }
+    public void unionByRank(int u,int v){
+        int utp_u =findPar(u);
+        int utp_v =findPar(v);
+        
+        if(utp_u == utp_v) return;
+        
+        if(rank.get(utp_u)==rank.get(utp_v)){
+            parent.set(utp_v, utp_u);
+            rank.set(utp_u , rank.get(utp_u)+1);
+        }else if(rank.get(utp_u) >rank.get(utp_v)){
+            parent.set(utp_u,utp_v);
+        }else if(rank.get(utp_u) < rank.get(utp_v)){
+            parent.set(utp_v,utp_u);
         }
     }
 }
