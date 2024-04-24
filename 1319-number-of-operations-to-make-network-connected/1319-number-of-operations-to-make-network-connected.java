@@ -10,7 +10,7 @@ class Solution {
             int v =connections[i][1];
             
             if(ds.findPar(u) != ds.findPar(v)){
-                ds.unionByRank(u,v);
+                ds.unionBySize(u,v);
             }else{
                 cntExtraEdge++;
             }
