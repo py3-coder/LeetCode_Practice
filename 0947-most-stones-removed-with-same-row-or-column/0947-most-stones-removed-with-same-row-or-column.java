@@ -18,8 +18,8 @@ class Solution {
         }
 
         int cnt = 0;
-        for (Map.Entry<Integer, Integer> it : stoneNodes.entrySet()) {
-            if (ds.findPar(it.getKey()) == it.getKey()) {
+        for (int it : stoneNodes.keySet()) {
+            if (ds.findPar(it) == it) {
                 cnt++;
             }
         }
