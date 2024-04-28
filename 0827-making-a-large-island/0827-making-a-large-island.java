@@ -1,7 +1,8 @@
 class Solution {
     public int largestIsland(int[][] grid) {
-        int n =grid.length;
-        DisjoinSet ds =new DisjoinSet(n*n);
+        int n = grid.length;
+        
+        DisjointSet ds =new DisjointSet(n*n);
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
                 int[] drow ={0,1,0,-1};
@@ -18,7 +19,7 @@ class Solution {
                     }
                 }
             }
-        }   
+        }
         int largestSize= 0;
         int cntZero=0;
         for(int i=0;i<n;i++){
@@ -60,38 +61,38 @@ class Solution {
         }
         return largestSize; 
     }
+} 
+
+class DisjointSet{
+    List<Integer> size =new ArrayList<>();
+    List<Integer> parent =new ArrayList<>();
     
-}
-class DisjoinSet{
-    List<Integer> size = new ArrayList<>();
-    List<Integer> parent  = new ArrayList<>();
-    
-    
-    DisjoinSet(int n){
+    DisjointSet(int  n){
         for(int i=0;i<=n;i++){
             size.add(1);
             parent.add(i);
         }
     }
+    
     public int findPar(int node){
         if(node == parent.get(node)){
             return node;
-        }
+        } 
         
-        int par = findPar(parent.get(node));
-        parent.set(node,par);
+        int tempar = findPar(parent.get(node));
+        parent.set(node,tempar);
         return parent.get(node);
     }
     
-    public void unionBySize(int u,int v){
-        int ulp_u =  findPar(u);
+    public void unionBySize(int u ,int v){
+        int ulp_u =findPar(u);
         int ulp_v =findPar(v);
         
-        if(ulp_u == ulp_v) return;
+        if(ulp_u == ulp_v) return; 
         
         if(size.get(ulp_u)>size.get(ulp_v)){
             parent.set(ulp_v,ulp_u);
-            size.set(ulp_u , size.get(ulp_u)+size.get(ulp_v));
+            size.set(ulp_u,size.get(ulp_u)+size.get(ulp_v));
         }else{
             parent.set(ulp_u,ulp_v);
             size.set(ulp_v,size.get(ulp_u)+size.get(ulp_v));
