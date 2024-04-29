@@ -9,9 +9,10 @@ class Solution {
                 for(int j=0;j<n;j++){
                     
                     
-                    if (grid[i][j] > time)
-                            continue;
-                    
+                    if (grid[i][j] > time){
+                        continue;
+                    }
+                        
                     int[] dx={0,1,0,-1};
                     int[] dy={1,0,-1,0};
                     
