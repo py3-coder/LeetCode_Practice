@@ -1,39 +1,48 @@
 class Solution {
-    public int minMutation(String start, String end, String[] bank) {
-        int level = 0;
-        int len = bank.length;
-        char[] chr = {'A','C','G','T'};
-        Set<String> hset = new HashSet<String>();
-        for(String s: bank){
-            hset.add(s);
+    public int minMutation(String startGene, String endGene, String[] bank) {
+        
+        // Lets Try BFS ->
+        Set<String> set = new HashSet<>();
+        set.add(startGene);
+        
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a,b)->(a.t-b.t));
+        pq.offer(new Pair(startGene,0));
+        
+        while(!pq.isEmpty()){
+            Pair  pp = pq.peek();
+            pq.poll();
+            String pgene =pp.n;
+            if(pgene.equals(endGene)){
+                return  pp.t;
+            }
+            
+            for(String gene : bank){
+                if(!set.contains(gene) && diffGeneLen(gene , pgene)==1){
+                    set.add(gene);
+                    pq.offer(new Pair(gene ,pp.t+1));
+                }
+            }
         }
-        Queue<String> queue = new LinkedList<>();
-        queue.add(start);
-        while(true){
-            level++;
-            int n = queue.size();
-            if(n == 0){
-                return -1;
+        return -1;
+        
+    }
+    public int diffGeneLen(String a,String b){
+        int cnt=0;
+        for(int i=0;i<8;i++){
+            if(a.charAt(i)!=b.charAt(i)){
+                cnt++;
             }
-            for(int i =0; i < n; i++){
-                char[] ch = queue.poll().toCharArray();
-            for(int j =0; j < 8; j++){
-                char org_char = ch[j];
-            for(int c = 0; c<4; c++){
-                ch[j] = chr[c]; 
-                String str = String.valueOf(ch);
-                if(str.equals(end)&& hset.contains(str)){
-                    return level;
-                }
-                if(!hset.contains(str)){
-                    continue;
-                }
-            hset.remove(str);
-            queue.add(str);
-            }
-            ch[j] = org_char;
-            }
-            }
-        }  
+        }
+        return cnt;
+    }
+}
+
+class Pair{
+    String n;
+    int t;
+    
+    Pair(String _n,int _t){
+        this.n =_n;
+        this.t =_t;
     }
 }
