@@ -1,38 +1,22 @@
 class Solution {
     public double myPow(double x, int n) {
-        // double ans=1;
-        // if(n<0){
-        //     n= (-1)*n;
-        //     x=1/x;
-        // }
-        // while(n>0){
-        //     if(n%2==1){
-        //         n--;
-        //         ans =ans*x;
-        //     }else{
-        //         n/=2;
-        //         x=x*x;
-        //     }
-        // }
-        // return ans;
-        if(n < 0){
-            n = -n;
-            x = 1 / x;
+        // B H I Method :: BaseCase Hypothesis Induction ::
+        //Base Case::
+        if(n==0){
+            return 1;
         }
-        
-        double pow = 1;
-        
-        while(n != 0){
-            if((n & 1) != 0){
-                pow *= x;
-            } 
-                
-            x *= x;
-            n >>>= 1;
-            
+        //to handle edge case for Int
+        long N=n;
+        // to handle -ve case::
+        if(N<0){
+            N =-N;
+            x =1/x;
         }
-        
-        return pow;
-        
+        //just a easy catch --- x^8 --> x^(2*4)
+        if(N%2==0){
+            return myPow(x*x,(int)(N/2));
+        }else{
+            return x*myPow(x,(int)N-1);
+        }
     }
 }
