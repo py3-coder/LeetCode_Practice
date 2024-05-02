@@ -10,30 +10,30 @@
  */
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-        ListNode pointer = dummy;
-        while (pointer != null) {
-            ListNode node = pointer;
-            // first check whether there are k nodes to reverse
-            for (int i = 0; i < k && node != null; i++) {
-                node = node.next;
-            }
-            if (node == null) break;
-            
-            // now we know that we have k nodes, we will start from the first node
-            ListNode prev = null, curr = pointer.next, next = null;
-            for (int i = 0; i < k; i++) {
-                next = curr.next;
-                curr.next = prev;
-                prev = curr;
-                curr = next;
-            }
-            ListNode tail = pointer.next;
-            tail.next = curr;
-            pointer.next = prev;
-            pointer = tail;
+        // Lets Apply Our Brains ::
+        if(head==null || head.next==null){
+            return head;
         }
-        return dummy.next;
-}
+        ListNode curr1 =head;
+        for(int i=0;i<k;i++){
+            if(curr1==null){
+                return head;
+            }
+            curr1 =curr1.next;
+        }
+        ListNode curr=head ,prev =null ,temp=null;
+        int cnt=0;
+        while(curr!=null && cnt<k){
+            temp=curr.next;
+            curr.next=prev;
+            prev =curr ;
+            curr=temp;
+            cnt++;
+        }
+        if(temp!=null){
+            head.next =reverseKGroup(temp,k);
+        }
+        return prev;
+        
+    }
 }
