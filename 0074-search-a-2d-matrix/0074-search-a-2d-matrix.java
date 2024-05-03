@@ -1,21 +1,25 @@
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
-        // Lets Apply for Binary Search 
-        int n=matrix.length;
-        int m=matrix[0].length;
-        int left=0;
-        int right=m*n-1;
-        while(left<=right){
-            int mid =left+(right-left)/2;
-            if(matrix[mid/m][mid%m]==target){
+        int n = matrix.length;
+        int m = matrix[0].length;
+    
+        int start=0;
+        int end = n*m-1;
+        
+        while(start<=end){
+            int mid  = start+(end-start)/2;
+            
+            int row  = mid/m;
+            int col  = mid%m;
+        
+            if(target == matrix[row][col]){
                 return true;
-            }
-            if(matrix[mid/m][mid%m]<target){
-                left =mid+1;
+            }else if(target<matrix[row][col]){
+                end = mid-1;
             }else{
-                right=mid-1;
+                start = mid+1;
             }
         }
-        return false;   
+        return false;
     }
 }
