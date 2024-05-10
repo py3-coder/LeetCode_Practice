@@ -47,8 +47,11 @@ class Solution {
             
     }
     private int[] countPairs(int[] A, double x) {
+        //p and q are used for storing the indices of max fraction
+        //cnt of value in indx term
         int count = 0, n = A.length, p = 0, q = 0;
         double max = 0.0;
+        //max is used to store the maximum fraction less than mid
         for (int i = 0, j = 0; i < n; i++) {
             while (j < i && A[j] < A[i] * x) j++;
             if (j > 0) {
