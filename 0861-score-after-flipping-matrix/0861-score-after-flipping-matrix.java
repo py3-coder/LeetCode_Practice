@@ -1,9 +1,35 @@
 class Solution {
     public int matrixScore(int[][] grid) {
-        //Broute Force -- 
         int n = grid.length;
         int m = grid[0].length;
-       
+
+        //Broute Force -- 
+        // TC : O(n^2)
+        // SC : O(m)
+        //return solveBrouteForce(n,m,grid);
+    
+        //Optimisation :-
+        return solveOpt(n,m,grid);
+        
+    }
+    public int solveOpt(int n ,int m , int[][] grid){
+        int res =0;
+        
+        res += (1<<(m-1))*n;
+        
+        for(int j=1;j<m;j++){
+            int same =0;
+            for(int i=0;i<n;i++){
+                if(grid[i][0] == grid[i][j]){
+                    same++;
+                }
+            }
+            res += (1<<(m-1-j))*Math.max(same,n-same);
+        }
+        
+        return res;
+    }
+    public int solveBrouteForce(int n,int m ,int[][] grid){
         for(int i=0;i<n;i++){
             if(grid[i][0]==0){
                 flipRows(grid,i);
@@ -41,7 +67,6 @@ class Solution {
             }
         }
         return sum;
-        
     }
     public void flipRows(int[][] grid ,int i){
         for(int j=0;j<grid[0].length;j++){
