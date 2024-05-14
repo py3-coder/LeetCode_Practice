@@ -2,6 +2,10 @@ class Solution {
     static int sum,res;
     public int getMaximumGold(int[][] grid) {
         // Simple DFS::
+        
+        // TC : O(k * 4 ^ k + m * n - k), 
+        // SC : O(m * n)
+        // where k = number of gold cells
         int n  = grid.length;
         int m = grid[0].length;
         
