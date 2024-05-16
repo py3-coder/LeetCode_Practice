@@ -15,7 +15,7 @@
  */
 class Solution {
     public boolean evaluateTree(TreeNode root) {
-        return solve(root);
+        return play(root);
     }
     
     public boolean solve(TreeNode root){
@@ -26,7 +26,11 @@ class Solution {
                 return true;
             }
         }
+
         return (root.val==3)?(solve(root.left) && solve(root.right)):(solve(root.left) || solve(root.right));
         
+    }
+    public boolean play(TreeNode root){        
+       return (root.val < 2) ? (root.val != 0) : (root.val == 2) ? (play(root.left) || play(root.right)) : (play(root.left) && play(root.right));
     }
 }
