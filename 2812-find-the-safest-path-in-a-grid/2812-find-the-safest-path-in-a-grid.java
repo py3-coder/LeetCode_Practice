@@ -24,15 +24,6 @@ class Solution {
         
         // So how to solve this --
         
-//         for(int i=0;i<n;i++){
-//             for(int j=0;j<n;j++){
-//                 System.out.print(res[i][j]+" ");
-//             }
-//             System.out.println();
-//         }
-        
-        //
-        
         List<Integer>[] temp = new ArrayList[n*n];
         for(int i=0;i<n*n;i++){
             temp[i] = new ArrayList<>();
@@ -69,36 +60,6 @@ class Solution {
             }
         }
         return -1;
-        
-        
-        //Previous Approch :-
-        
-//         for(int r=401;r>=0;r--){
-            
-//             for(int i=0;i<n;i++){
-//                 for(int j=0;j<n;j++){
-                    
-//                     if(res[i][j]>=r){
-//                         for(int k=0;k<4;k++){
-//                             int nr = i+dx[k];
-//                             int nc = j+dy[k];
-//                             int pkey =i*n+j;
-//                             int key  = nr*n+nc;
-//                             if(isvalid(nr, nc, n) && res[nr][nc]>=r && ds.findPar(pkey)!=ds.findPar(key)){
-//                                 ds.unionbySize(pkey,key);
-//                             }
-//                         }
-//                     }else{
-//                         continue;
-//                     }
-//                 }
-//             }
-//             if(ds.findPar(0)==ds.findPar(n*n-1)){
-//                 return r;
-//             }
-//         }
-        // return -1;
-
     }
     public int bs(int[][] res){
         int l = 0;
