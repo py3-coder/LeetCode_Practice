@@ -1,99 +1,3 @@
-// class Solution {
-//     private int n;
-//     private int[] vToSafety;
-//     private List<Integer>[] safetyToVs;
-
-//     private void calculateSafety(List<List<Integer>> grid) {
-//         n = grid.size();
-//         vToSafety = new int[n * n];
-//         Queue<Integer> q = new ArrayDeque<>();
-//         for (int i = 0; i < n; ++i) {
-//             List<Integer> row = grid.get(i);
-//             for (int j = 0; j < n; ++j) {
-//                 int v = n * i + j;
-//                 if (row.get(j) == 0) {
-//                     vToSafety[v] = -1;
-//                 } else {
-//                     q.add(v);
-//                 }
-//             }
-//         }
-//         while (!q.isEmpty()) {
-//             int v = q.remove();
-//             if (v - n >= 0     && vToSafety[v - n] == -1) { vToSafety[v - n] = vToSafety[v] + 1; q.add(v - n); }
-//             if (v + n <  n * n && vToSafety[v + n] == -1) { vToSafety[v + n] = vToSafety[v] + 1; q.add(v + n); }
-//             if (v % n >  0     && vToSafety[v - 1] == -1) { vToSafety[v - 1] = vToSafety[v] + 1; q.add(v - 1); }
-//             if (v % n <  n - 1 && vToSafety[v + 1] == -1) { vToSafety[v + 1] = vToSafety[v] + 1; q.add(v + 1); }
-//         }
-//         safetyToVs = new List[2 * n];
-//         for (int safety = 0; safety < 2 * n; ++safety) {
-//             safetyToVs[safety] = new ArrayList<>();
-//         }
-//         for (int v = 0; v < n * n; ++v) {
-//             safetyToVs[vToSafety[v]].add(v);
-//         }
-//     }
-
-//     private static class Dsu {
-//         private int n;
-//         private int[] p;
-//         private int[] d;
-
-//         public Dsu(int n) {
-//             this.n = n;
-//             this.p = new int[n];
-//             this.d = new int[n];
-//             for (int i = 0; i < n; ++i) {
-//                 p[i] = i;
-//             }
-//         }
-
-//         private int get(int i) {
-//             if (p[i] != i) {
-//                 p[i] = get(p[i]);
-//             }
-//             return p[i];
-//         }
-
-//         private void merge(int i, int j) {
-//             i = get(i);
-//             j = get(j);
-//             if (d[i] < d[j]) {
-//                 int t = i; i = j; j = t;
-//             }
-//             p[j] = i;
-//             if (d[i] == d[j]) {
-//                 ++d[i];
-//             }
-//         }
-//     }
-
-//     public int maximumSafenessFactor(List<List<Integer>> grid) {
-//         calculateSafety(grid);
-//         for(List<Integer> ele : safetyToVs){
-//                 System.out.print(ele);
-//              System.out.println();
-            
-//         }
-//         int from = 0, to = n * n - 1;
-//         Dsu dsu = new Dsu(n * n);
-//         for (int safety = 2 * n - 2; safety > 0; --safety) {
-//             for (int v : safetyToVs[safety]) {
-//                 if (v - n >= 0     && vToSafety[v - n] >= safety) { dsu.merge(v, v - n); }
-//                 if (v + n <  n * n && vToSafety[v + n] >= safety) { dsu.merge(v, v + n); }
-//                 if (v % n >  0     && vToSafety[v - 1] >= safety) { dsu.merge(v, v - 1); }
-//                 if (v % n <  n - 1 && vToSafety[v + 1] >= safety) { dsu.merge(v, v + 1); }
-//             }
-//             if (dsu.get(from) == dsu.get(to)) {
-//                 return safety;
-//             }
-//         }
-//         return 0;
-//     }
-// }
-
-
-
 class Solution {
     public int maximumSafenessFactor(List < List < Integer >> grid) {
         int n = grid.size();
@@ -120,47 +24,52 @@ class Solution {
         
         // So how to solve this --
         
-        // for(int i=0;i<n;i++){
-        //     for(int j=0;j<n;j++){
-        //         System.out.print(res[i][j]+" ");
-        //     }
-        //     System.out.println();
-        // }
-    
+//         for(int i=0;i<n;i++){
+//             for(int j=0;j<n;j++){
+//                 System.out.print(res[i][j]+" ");
+//             }
+//             System.out.println();
+//         }
+        
+        //
+        
+        List<Integer>[] temp = new ArrayList[n*n];
+        for(int i=0;i<n*n;i++){
+            temp[i] = new ArrayList<>();
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                int key = i*n+j;
+                temp[res[i][j]].add(key);
+            }
+        }
+
         // think of DSU :-
         int[] dx = {0,1,0,-1};
         int[] dy = {1,0,-1,0};
 
-        
-        List<int[]> temp= new ArrayList<>();
-        
-        
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                temp.add(new int[]{i, j, res[i][j]});
-            }
-        }
-        
-        Collections.sort(temp, (a,b) ->(b[2]-a[2]));
         DisjointSet ds = new DisjointSet(n*n);
-
-        for(int i=0;i<temp.size();i++){
-            int r =temp.get(i)[0];
-            int c =temp.get(i)[1];
-            int d =temp.get(i)[2];
-            for(int k=0;k<4;k++){
-                int nr = r+dx[k];
-                int nc = c +dy[k];
-                
-                if(isvalid(nr,nc,n) && res[nr][nc]>=d){
-                    ds.unionbySize(r*n+c,nr*n+nc);
+        int start=0 , end = n*n-1;
+        
+        for(int r=temp.length-1;r>=0;r--){
+            for(int curr : temp[r]){
+                    int  i= curr/n;
+                    int  j= curr%n;
+                for(int k=0;k<4;k++){
+                    int nr = i+dx[k];
+                    int nc = j+dy[k];
+                    int key  = nr*n+nc;
+                    if(isvalid(nr, nc, n) && res[nr][nc]>=r){
+                        ds.unionbySize(curr,key);
+                    }
                 }
             }
-            if(ds.findPar(0)==ds.findPar(n*n-1)){
-                return d;
+            if(ds.findPar(start)==ds.findPar(end)){
+                return r;
             }
         }
-           return -1; 
+        return -1;
+        
         
         //Previous Approch :-
         
