@@ -26,12 +26,7 @@ class Solution {
                 return true;
             }
         }
+        return (root.val==3)?(solve(root.left) && solve(root.right)):(solve(root.left) || solve(root.right));
         
-        int val = root.val;
-        if(val==3){
-            return solve(root.left) && solve(root.right);
-        }else{
-            return solve(root.left) || solve(root.right);
-        }
     }
 }
