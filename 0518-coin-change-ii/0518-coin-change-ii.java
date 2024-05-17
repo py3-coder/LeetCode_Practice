@@ -5,7 +5,9 @@ class Solution {
         memo = new int[n+1][amount+1];
         Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
         
-        return solveRec(n,amount,coins);
+        //return solveRec(n,amount,coins);
+        
+        return solveTab(n,amount,coins);
     }
     public int solveRec(int n,int amt,int[] coins){
         //Base Case ::
@@ -25,5 +27,34 @@ class Solution {
         }else{
             return  memo[n][amt]=solveRec(n,amt-coins[n-1],coins) + solveRec(n-1,amt,coins);
         }
+    }
+    public int solveTab(int n,int amt ,int[] coins){
+        int[][] tab = new int[n+1][amt+1];
+        
+        
+        for(int i=0;i<n+1;i++){
+            for(int j=0;j<amt+1;j++){
+                if(j==0){
+                    tab[i][j] = 1;
+                }
+                if(i==0){
+                    tab[i][j]=0;
+                }
+            }
+        }
+        
+        
+        //
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=amt;j++){
+                if(coins[i-1]>j){
+                    tab[i][j] = tab[i-1][j];
+                }else{
+                    tab[i][j] = tab[i][j-coins[i-1]] + tab[i-1][j];
+                }
+            }
+        }
+        
+        return tab[n][amt];
     }
 }
