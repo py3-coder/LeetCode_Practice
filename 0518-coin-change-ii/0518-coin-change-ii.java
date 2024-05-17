@@ -7,7 +7,9 @@ class Solution {
         
         //return solveRec(n,amount,coins);
         
-        return solveTab(n,amount,coins);
+        //return solveTab(n,amount,coins);
+        
+        return solveOpt(n,amount,coins);
     }
     public int solveRec(int n,int amt,int[] coins){
         //Base Case ::
@@ -30,8 +32,6 @@ class Solution {
     }
     public int solveTab(int n,int amt ,int[] coins){
         int[][] tab = new int[n+1][amt+1];
-        
-        
         for(int i=0;i<n+1;i++){
             for(int j=0;j<amt+1;j++){
                 if(j==0){
@@ -43,8 +43,6 @@ class Solution {
             }
         }
         
-        
-        //
         for(int i=1;i<=n;i++){
             for(int j=1;j<=amt;j++){
                 if(coins[i-1]>j){
@@ -56,5 +54,29 @@ class Solution {
         }
         
         return tab[n][amt];
+    }
+    
+    public int solveOpt(int n,int amt ,int[] coins){
+        int[] curr = new int[amt+1];
+        int[] prev = new int[amt+1];
+        
+        curr[0]=1;
+        prev[0]=1;
+        
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=amt;j++){
+                if(coins[i-1]>j){
+                    curr[j] = prev[j];
+                }else{
+                    curr[j] = curr[j-coins[i-1]] + prev[j];
+                }
+            }
+            
+            for(int k=0;k<amt+1;k++){
+                prev[k] = curr[k];
+            }
+        }
+        
+        return curr[amt];
     }
 }
