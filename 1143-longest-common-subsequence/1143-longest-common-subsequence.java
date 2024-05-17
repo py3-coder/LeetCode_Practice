@@ -6,7 +6,7 @@ class Solution {
         Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
         //return solveRec(s1,s2,n,m);
         
-        return solveTab(s1,s2,n,m);
+        return solveOpt(s1,s2,n,m);
     }
     public int solveRec(String s1,String s2,int a,int b){
         //base case ::-
@@ -50,8 +50,9 @@ class Solution {
                     curr[j] = Math.max(curr[j-1],prev[j]);
                 }
             }
+            prev = (int[]) (curr.clone());
             
         }
-        return curr[m];
+        return prev[m];
     }
 }
