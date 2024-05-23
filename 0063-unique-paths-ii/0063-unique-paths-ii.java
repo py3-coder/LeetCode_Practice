@@ -1,30 +1,36 @@
 class Solution {
-    static int[][] dp =new int[101][101];
-    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
-        int x=obstacleGrid.length;
-        int y=obstacleGrid[0].length;
-        if(obstacleGrid[x-1][y-1]==1){
-            return 0;
-        }
-        Arrays.stream(dp).forEach(a->Arrays.fill(a,-1));
-        return solveRec(obstacleGrid,x-1,y-1);
+    static int[][] memo;
+    public int uniquePathsWithObstacles(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        memo = new int[n+1][m+1];
+        Arrays.stream(memo).forEach(a->Arrays.fill(a,-1));
+        if(grid[0][0]==1) return 0;
+        return solveRec(0,0,n-1,m-1,grid);
     }
-    public static int solveRec(int[][] obs,int x,int y){
-        if(x==0 && y==0) return 1;
-        if(x<0 || y<0) return 0;
-
-        if(dp[x][y]!=-1){
-            return dp[x][y];
+    public int solveRec(int r,int c,int n,int m,int[][] grid){
+        //Base Case ::
+        if(r == n && c == m){
+            return 1;
         }
-        //left 
-        int way1=0,way2=0;
-        if(y>0 && obs[x][y-1]!=1){
-            way1=solveRec(obs,x,y-1);
+        if(r>n || c>m) return 0;
+        
+        
+        if(memo[r][c]!=-1){
+            return memo[r][c];
         }
-        //up
-        if(x>0 && obs[x-1][y]!=1){
-            way2=solveRec(obs,x-1,y);
+        
+        //right 
+        int left=0,right=0;
+        if(c+1<grid[0].length && grid[r][c+1]!=1){
+            left+= solveRec(r,c+1,n,m,grid);
         }
-        return dp[x][y]=way1+way2;
+        
+        //down
+        if(r+1<grid.length && grid[r+1][c]!=1){
+            right+= solveRec(r+1,c,n,m,grid);
+        }
+        
+        return memo[r][c]=left+right;
     }
 }
