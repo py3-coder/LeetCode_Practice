@@ -13,9 +13,9 @@ class Solution {
         // }
         //return mini;
         
-        //return solveTab(matrix);
+        return solveTab(matrix);
         
-        return solveOpt(matrix);
+        //return solveOpt(matrix);
     }
     public int solveRec(int i,int j,int n,int[][] matrix){
         //base case ::
