@@ -1,47 +1,36 @@
-
-
-public class Solution {
-    public int minFallingPathSum(int[][] A) {
-        int m = A.length;
-        int n = A[0].length;
-
-        if (m == 1 || n == 1) return A[0][0];
-
-        int[][] dp = new int[m][n];
-        for (int[] row : dp) {
-            Arrays.fill(row, Integer.MAX_VALUE);
+class Solution {
+    static int[][] memo;
+    public int minFallingPathSum(int[][] matrix) {
+        
+        int n  = matrix.length;
+        if (n == 1) return matrix[0][0];
+        
+        memo = new int[n+1][n+1];
+        Arrays.stream(memo).forEach(a->Arrays.fill(a,Integer.MAX_VALUE));
+        int mini  = Integer.MAX_VALUE;
+        for(int i=0;i<n;i++){
+            mini = Math.min(mini , solveRec(0,i,n,matrix));
+        }
+        return mini;
+    }
+    public int solveRec(int i,int j,int n,int[][] matrix){
+        //base case ::
+        if(i==n){
+            return 0;
         }
         
-        int ans = Integer.MAX_VALUE;
-
-        for (int i = 0; i < A.length; ++i) {
-            ans = Math.min(ans, minFallingPathSum(A, 0, i, dp));
+        if(memo[i][j]!=Integer.MAX_VALUE){
+            return memo[i][j];
         }
-
-        return ans;
-    }
-
-    private int minFallingPathSum(int[][] A, int row, int col, int[][] dp) {
-        int m = A.length;
-        int n = A[0].length;
-
-        if (dp[row][col] != Integer.MAX_VALUE) return dp[row][col];
-
-        if (row == m - 1)
-            return dp[row][col] = A[row][col];
-
-        int left = Integer.MAX_VALUE, right = Integer.MAX_VALUE;
-
-        if (col > 0)
-            left = minFallingPathSum(A, row + 1, col - 1, dp);
-
-        int straight = minFallingPathSum(A, row + 1, col, dp);
-
-        if (col < n - 1)
-            right = minFallingPathSum(A, row + 1, col + 1, dp);
-
-        dp[row][col] = Math.min(left, Math.min(straight, right)) + A[row][col];
-
-        return dp[row][col];
+        
+        int left =Integer.MAX_VALUE,right=Integer.MAX_VALUE;
+        if(j>0){
+            left = solveRec(i+1,j-1,n,matrix);
+        }
+        int center = solveRec(i+1,j,n,matrix);
+        if(j<n-1){
+            right = solveRec(i+1,j+1,n,matrix);
+        }
+        return memo[i][j] = matrix[i][j] + Math.min(left,Math.min(center,right));
     }
 }
