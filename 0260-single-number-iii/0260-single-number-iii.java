@@ -27,20 +27,26 @@ class Solution {
         //finding the the first diff bit so that we can part the array in 2 part to get two unique ele.
         // or simply we trying to find last set bit .
         
-        //diff &= ~(diff - 1)
-        int indx =0;
-        for(int i=0;i<(1<<5);i++){
-            if(isbitset(xor,i)){
-                indx =i;
-                break;
-            }
-        }
+        //formula to find last set bit-
+        xor &= ~(xor - 1);
+        //int indx =0;
+        // for(int i=0;i<(1<<5);i++){
+        //     if(isbitset(xor,i)){
+        //         indx =i;
+        //         break;
+        //     }
+        // }
         int r1 =0,r2=0;
         for(int ele :nums){
-            if(isbitset(ele,indx)){
-                r1^=ele;
+            // if(isbitset(ele,indx)){
+            //     r1^=ele;
+            // }else{
+            //     r2^=ele;
+            // } 
+            if((xor&ele) == 0){
+                r1 ^=ele;
             }else{
-                r2^=ele;
+                r2 ^=ele;
             }
         }
         return new int[]{r1,r2};
