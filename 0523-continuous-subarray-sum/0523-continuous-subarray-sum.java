@@ -1,19 +1,4 @@
 class Solution {
-    /*
-    Brute Force --> TLE
-     public boolean checkSubarraySum(int[] nums, int k) {
-        for (int i = 0; i < nums.length; ++i) {
-            int sum = nums[i];
-            for (int j = i + 1; j < nums.length; ++j) {
-                sum += nums[j];
-                if (sum % k == 0) return true;
-            }
-        }
-
-        return false;
-    }
-    */
-
     public boolean checkSubarraySum(int[] nums, int k) {
         HashMap<Integer,Integer> map = new HashMap<>();
         int sum =0;
@@ -30,21 +15,5 @@ class Solution {
             map.putIfAbsent(sum,i);
         }
         return false;
-    } 
-    /*
-    //Same with little change :
-     public boolean checkSubarraySum(int[] nums, int k){
-         HashMap<Integer,Integer> map = new HashMap<>();
-         map.put(0,-1); // Reason : might 1st ele if array%k==0 so we should return false..(len condition)
-         int sum =0;
-         for(int i=0;i<nums.length;i++){
-             sum +=nums[i];
-             int rem =0;
-             if(k!=0) rem =sum%k;
-             if(map.containsKey(rem) && i-map.get(rem)>1) return true;
-             map.putIfAbsent(rem,i);
-         }
-         return false;
-     }
-     */
+    }
 }
