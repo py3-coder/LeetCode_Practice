@@ -25,9 +25,7 @@ class Solution {
     public int bs(List<List<Integer>> lis , int target){
         int l =0;
         int h =lis.size()-1;
-        if(target>=lis.get(h).get(0)){
-            return h;
-        }
+       
         int ans=-1;
         while(l<=h){
             int m = l+(h-l)/2;
