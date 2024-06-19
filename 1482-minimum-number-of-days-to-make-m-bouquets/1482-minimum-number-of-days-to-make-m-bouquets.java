@@ -1,54 +1,49 @@
 class Solution {
     public int minDays(int[] bloomDay, int m, int k) {
-        /* Approch ~ Observations
-        1. if m*k > arr.length then it should return -1 in every case
-        2. lets think  in direction minimun no. of days to bool a flower  the min element in array
-            and all flower will bool in max days that is maximum element of array
-        3. So , we need to search the minimum value into the min to max range ....
-        4. Searching Space : [min element to max element]
-        5. Now, we can apply binary searh to find the ans 
+        int n = bloomDay.length;
+        //edge cases :
         
+        if(m>n) return -1;
+        if((long)m*(long)k>n) return -1;
         
-        Code :
-        */
-        if((long)m*k > bloomDay.length){
-            return -1;
-        }
-        int min = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
-        for(int val : bloomDay){
-            min = Math.min(min,val);
-            max = Math.max(max,val);
-        }
-        int res =0;
-        int start = min;
-        int end = max;
-        while(start<=end){
-            int mid = start +(end -start)/2;
-            if(isPossible(bloomDay,m,k,mid)==true){
-                res =mid;
-                end = mid-1;
-            }else{
-                start = mid+1;
-            }
-        }
-        return res;
-    }
+        int l = Integer.MAX_VALUE;
+        int h=Integer.MIN_VALUE;
     
-    public static boolean isPossible(int[] arr,int m,int k, int mid){
-        int count =0;
-        int counter=0;
-        for(int i=0;i<arr.length;i++){
-            if(mid>=arr[i]){
-                count +=1;
-                if(count==k){
-                    counter +=1;
-                    count=0;
-                }
-            }else if(mid<arr[i]){
-                count =0;
+        for(int day : bloomDay){
+            h = Math.max(h , day);
+            l = Math.min(l , day);
+        }
+        
+        //edge case
+        if(m == n){
+            return h;
+        }
+        int ans = h;
+        while(l<=h){
+            int mid  = l+(h-l)/2;
+            if(isPossible(mid , bloomDay ,k ,m)){
+                ans = mid;
+                h = mid-1;
+            }else{
+                l = mid+1;
             }
         }
-        return counter>=m;
+        return ans;
+    }
+    public boolean isPossible(int target , int[] arr ,int k ,int m){
+        int cnt =0;
+        int temp =0;
+        for(int ele : arr) {
+            if(ele<=target){
+                temp++;
+                if(temp == k){
+                    cnt++;
+                    temp =0;
+                }
+            }else{
+                temp =0;
+            }
+        }
+        return m <= cnt ;
     }
 }
