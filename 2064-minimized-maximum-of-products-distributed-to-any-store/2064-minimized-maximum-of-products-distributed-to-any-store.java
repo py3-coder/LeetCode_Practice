@@ -1,28 +1,33 @@
 class Solution {
     public int minimizedMaximum(int n, int[] quantities) {
-        int max = Integer.MIN_VALUE;
-        for(int val : quantities){
-            max= Math.max(max,val);
+        int maxi = Integer.MIN_VALUE;
+        for(int quantity : quantities){
+            maxi = Math.max(quantity , maxi) ;
         }
-        int start =1;
-        int end = max;
-        int res =0;
-        while(start<=end){
-            int mid = start +(end-start)/2;
-            if(isPossible(n,mid,quantities)==true){
-                res = mid;
-                end = mid-1;
+        
+        int ans=0;
+        int  l=1 , h = maxi;
+        while(l<=h){
+            int mid = l+(h-l)/2;
+            if(isPossible(n,mid,quantities)){
+                ans = mid;
+                h= mid-1;
             }else{
-                start = mid+1;
+                l= mid+1;
             }
         }
-        return res ;
+        return ans ;
     }
-    public static boolean isPossible(int n , int mid , int[] arr){
-        int count =0;
-        for(int val : arr){
-            count += Math.ceil(val/(mid*1.0));
+    
+    public boolean isPossible(int n , int target , int[] quantities){
+        int cnt  = 0;
+        for(int ele : quantities){
+            if(ele%target == 0){
+                cnt += ele/target;
+            }else{
+                cnt += ele/target +1;
+            }
         }
-        return count<=n;
+        return cnt <= n ;
     }
 }
