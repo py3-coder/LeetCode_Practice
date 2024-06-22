@@ -4,8 +4,8 @@ class Solution {
         // Solved using Sliding Windows::
         //return solve(nums,k)-solve(nums,k-1);
         
-        HashMap<Integer, Integer> mp = new HashMap<>();
         
+        HashMap<Integer, Integer> mp = new HashMap<>();
         // Replace odd with 1 and even with 0
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] % 2 != 0) {
