@@ -67,7 +67,7 @@ class Solution {
                 if (nums[start] == minQ.peekFirst()) {
                     minQ.pollFirst();
                 }
-                ++start;
+                start++;
             }
             maxlen = Math.max(maxlen , end -start+1);
             end++;
