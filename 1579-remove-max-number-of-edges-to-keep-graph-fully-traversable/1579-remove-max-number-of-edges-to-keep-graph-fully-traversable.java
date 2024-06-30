@@ -29,7 +29,6 @@ class Solution {
             }
         }
         int counter = Collections.max(alice.size) + Collections.max(bob.size);
-        //System.out.print(counter);
         if(counter != 2*(n)){
             return -1;
         }
