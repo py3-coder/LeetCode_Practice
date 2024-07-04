@@ -11,8 +11,7 @@
 class Solution {
     public ListNode mergeNodes(ListNode head) {
         
-        ListNode res = new ListNode();
-        ListNode temp =  res ;
+        ListNode temp =  head ;
         ListNode curr = head.next;
         int sum =0;
         while(curr!=null){
@@ -20,8 +19,8 @@ class Solution {
                 sum+=curr.val;
                 curr = curr.next;
             }
-            res.next = new ListNode(sum);
-            res = res.next ;
+            head.next = new ListNode(sum);
+            head = head.next ;
             curr = curr.next;
             sum =0;
         }
