@@ -16,14 +16,14 @@ class Solution {
         ListNode curr = head.next;
         int sum =0;
         while(curr!=null){
-            if(curr.val!=0){
+            while(curr.val!=0){
                 sum+=curr.val;
-            }else {
-                res.next = new ListNode(sum);
-                res = res.next ;
-                sum =0;
+                curr = curr.next;
             }
+            res.next = new ListNode(sum);
+            res = res.next ;
             curr = curr.next;
+            sum =0;
         }
         return temp.next;
     }
