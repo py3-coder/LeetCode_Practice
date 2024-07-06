@@ -5,12 +5,12 @@ class Solution {
        int q = time/reqN;
        int remPass = time%reqN;
         
-        if(q%2 == 0){
-            return 1+remPass;
-        }else{
-            return n-remPass;
-        }
-       
+        return (q%2==0)?1+remPass:n-remPass ;
         
+        // if(q%2 == 0){
+        //     return 1+remPass;
+        // }else{
+        //     return n-remPass;
+        // }   
     }
 }
