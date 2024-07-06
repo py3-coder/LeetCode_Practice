@@ -16,6 +16,8 @@ class Solution {
     //     }
     //    List<List<Integer>> res = new ArrayList<>(set);
     // return res;
+    // TC : O(n^3)
+    //SC =O(1)
 
     //optimised...
     //     for(int i=0;i<n;i++){
@@ -33,6 +35,7 @@ class Solution {
     //    List<List<Integer>> res = new ArrayList<>(set);
     //    return res;
 
+    //TC : O(n^2)
     //better 
     List< List < Integer > > ans= new ArrayList<>();
     Arrays.sort(arr);
