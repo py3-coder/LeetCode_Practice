@@ -1,33 +1,35 @@
 class Solution {
-    public void nextPermutation(int[] arr) {
-        int n =arr.length;
-        int idx=-1;
-        for(int i=n-2;i>=0;i--){
-            if(arr[i]<arr[i+1]){
-                idx=i;
+    public void nextPermutation(int[] nums) {
+        int n = nums.length;
+        int flag =-1;
+        for(int i=n-2;i>=0 ;i--){
+            if(nums[i]<nums[i+1]){
+                flag =i;
                 break;
             }
         }
-        if(idx==-1){
-            // Just Reverse the Array
-            Reverse(0,n,arr);
+        
+        if(flag == -1){
+            Reverse(0 , n , nums);
             return ;
         }
-        for(int i =n-1;i>idx;i--){
-            if(arr[i]>arr[idx]){
-                int temp=arr[i];
-                arr[i]=arr[idx];
-                arr[idx]=temp;
+        
+        for(int i = n-1 ;i>flag ;i--){
+            if(nums[flag]<nums[i]){
+                //swap ::
+                int temp = nums[flag];
+                nums[flag] = nums[i];
+                nums[i] = temp;
                 break;
             }
-           
         }
-        Reverse(idx+1,n,arr);
+        //Reverse :
+        Reverse(flag+1 , n , nums) ;
         
         
     }
-    //Sorted Array Reverse ---
-    public static void Reverse(int start ,int end,int[] arr){
+    
+     public static void Reverse(int start ,int end,int[] arr){
         for (int i = start, j = end-1, tmp; i < j; i++, j--) {
             tmp= arr[i];
             arr[i] = arr[j];
