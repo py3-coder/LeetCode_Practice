@@ -1,7 +1,6 @@
 class Solution {
     public int findTheCity(int n, int[][] edges, int distanceThreshold) {
         // Lets try with Dijkestra ::
-        
         //1. Lets Make adj ::
         ArrayList<ArrayList<ArrayList<Integer>>> adj = new ArrayList<>();
         for(int i=0;i<n;i++){
