@@ -6,12 +6,12 @@ class Solution {
             sb.append(i);
         }
        while(k>0){
-           int val =0;
-           String ss =sb.toString(); 
-           for(char ch : ss.toCharArray()){
+           int val =0; 
+           for(int i=0;i<sb.length();i++){
+               char ch = sb.charAt(i);
                val += ch-'0';
            }
-           sb = new StringBuilder();
+           sb.delete(0,sb.length());
            sb.append(val);
            k--;
        }
