@@ -12,12 +12,12 @@ class Solution {
             maxend = Math.max(maxend,segment[1]);
         }
         List<List<Long>> res = new ArrayList<>(); 
-        long last_i=0,sum=0;
+        long last=0,sum=0;
         for(int i=1;i<line.length;i++){            
             if( set.contains(i) && sum > 0){
-                res.add(Arrays.asList(last_i, (long)i, sum));    
+                res.add(Arrays.asList(last, (long)i, sum));    
             }
-            last_i =set.contains(i) ? i : last_i;
+            last =set.contains(i) ? i : last;
             sum += line[i];
             if(i==maxend){
                 break;
