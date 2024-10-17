@@ -27,27 +27,50 @@ class Solution {
         
         
         
-            String st = String.valueOf(num);
-            int arr[] = new int[st.length()];
-            int[] last = new int[10];
+        // tc - O(N)
+        // SC - O(N) 
+        
+//             String st = String.valueOf(num);
+//             int arr[] = new int[st.length()];
+//             int[] last = new int[10];
            
-            for(int i=0;i<st.length();i++){
-                arr[i] = st.charAt(i)-'0';
-                last[arr[i]] =i;
-            }
+//             for(int i=0;i<st.length();i++){
+//                 arr[i] = st.charAt(i)-'0';
+//                 last[arr[i]] =i;
+//             }
         
-            for(int i=0;i<arr.length;i++){
+//             for(int i=0;i<arr.length;i++){
                 
-                for(int d=9;d>arr[i];d--){
-                    if(last[d]>i){
-                        //swap
-                        return Integer.valueOf(swap(st , i , last[d]));
-                    }
-                }
+//                 for(int d=9;d>arr[i];d--){
+//                     if(last[d]>i){
+//                         //swap
+//                         return Integer.valueOf(swap(st , i , last[d]));
+//                     }
+//                 }
+//             }
+//             return Integer.valueOf(st);
+        
+        
+        
+        
+        //TC : O(n)
+        // SC : O(1)
+        
+        int maxbase =0,max=-1;
+        int base=1,delta=0;
+        int temp = num;
+        while(num>0){
+            int d = num%10;
+            if(d>max){
+                maxbase=base;
+                max = d ;
+            }else{
+                delta = Math.max(delta , (base - maxbase) * ( max - d));
             }
-            return Integer.valueOf(st);
-        
-        
+            num/=10;
+            base*=10;
+        }
+        return temp+delta;
         
         
     }
