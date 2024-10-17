@@ -23,12 +23,12 @@ class Solution {
         
     }
     public String swap(String st , int indx , int pos){
-        char[] charArray = st.toCharArray();
-        char temp = charArray[indx];
-        charArray[indx] = charArray[pos];
-        charArray[pos] = temp;
+        char[] ch = st.toCharArray();
+        char temp = ch[indx];
+        ch[indx] = ch[pos];
+        ch[pos] = temp;
 
-        return new String(charArray);
+        return new String(ch);
         
     }
 }
