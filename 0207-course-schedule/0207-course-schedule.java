@@ -1,41 +1,37 @@
 class Solution {
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
+    public boolean canFinish(int nC, int[][] prerequisites) {
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
-        for(int i=0;i<numCourses;i++){
+        for(int i=0;i<nC;i++){
             adj.add(new ArrayList<>());
         }
-        
-        for(int i=0;i<prerequisites.length;i++){
-            adj.get(prerequisites[i][0]).add(prerequisites[i][1]);
+        for(int[] pre : prerequisites){
+            adj.get(pre[1]).add(pre[0]);
         }
-        int[] indeg =new int[numCourses];
-        for(int i=0;i<numCourses;i++){
-            for(int ele:adj.get(i)){
-                indeg[ele]++;
-            }
-        }
-        
-        
-        Queue<Integer> que = new LinkedList<>();
-        for(int i=0;i<numCourses;i++){
-            if(indeg[i]==0){
-                que.offer(i);
-            }
-        }
-        int cnt=0;
-        while(!que.isEmpty()){
-            int nodes  = que.poll();
-            cnt++;
-            for(int node : adj.get(nodes)){
-                indeg[node]--;
-                if(indeg[node]==0){
-                    que.offer(node);
+        int[] vis = new int[nC];
+        for(int i=0;i<nC;i++){
+            if(vis[i]==0){
+                if (dfs(i, vis, adj)) {
+                return false;
                 }
             }
+            
         }
-        if(cnt == numCourses){
-            return true;
+        return true;
+        
+    }
+    public boolean dfs(int node , int[] vis ,ArrayList<ArrayList<Integer>> adj){
+        vis[node]=1;
+        for(int adjNode : adj.get(node)){
+            if(vis[adjNode]==0){
+                if(dfs(adjNode,vis,adj)){
+                    return true;
+                }
+            }else if(vis[adjNode]==1){
+                return true;
+            }
         }
+        vis[node]=2;
         return false;
     }
+    
 }
