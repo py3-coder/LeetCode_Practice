@@ -1,6 +1,12 @@
 class Solution {
     public int takeCharacters(String s, int k) {
+        // Sliding window
+        // TC : O(n)
+        // SC : O(n)
+        
+        
         int n = s.length();
+        //edge case
         if(s.length() <k*3){
             return -1;
         }
@@ -12,16 +18,13 @@ class Solution {
         for(char ch : s.toCharArray()){
             map.put(ch , map.getOrDefault(ch,0)+1);
         }
-        
+        //check
         if(map.getOrDefault('a',0)<k || map.getOrDefault('b',0)<k || map.getOrDefault('c',0)<k){
             return -1;
         }
                 
         int ans = n;
-        
-        int start=0;
-        int end=0;
-        int window=0;
+        int start=0,end=0,window=0;
         while(end<s.length()){
             char ch =s.charAt(end);
             map.put(ch, map.get(ch)-1);
