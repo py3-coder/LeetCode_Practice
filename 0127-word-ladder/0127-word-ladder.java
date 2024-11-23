@@ -1,26 +1,29 @@
 class Solution {
-    public int ladderLength(String startWord, String targetWord, List<String> wordList) {
-        
-        HashSet<String> st = new HashSet<>();
-        for(String str :wordList){
-            st.add(str);
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        HashSet<String> set = new HashSet<>();
+        for(String word : wordList){
+            set.add(word);
         }
+        
         Queue<Pair> que = new LinkedList<>();
-        que.offer(new Pair(startWord,1));
-        st.remove(startWord);
+        que.offer(new Pair(beginWord,1));
+        set.remove(beginWord);
+        
         while(!que.isEmpty()){
-            String word =que.peek().word;
-            int dist =que.peek().dist;
-            que.poll();
-            if(word.equals(targetWord) == true) return dist;
+            Pair pp = que.poll();
+            String curr = pp.word;
+            int dist = pp.dist;
             
-            for(int i=0;i<word.length();i++){
+            if(curr.equals(endWord)){
+                return dist;
+            }
+            for(int i=0;i<curr.length();i++){
                 for(char ch='a';ch<='z';ch++){
-                    char replace[] =word.toCharArray();
+                    char replace[] =curr.toCharArray();
                     replace[i]=ch;
                     String newreplaced =new String(replace);
-                    if(st.contains(newreplaced)==true){
-                        st.remove(newreplaced);
+                    if(set.contains(newreplaced)){
+                        set.remove(newreplaced);
                         que.offer(new Pair(newreplaced,dist+1));
                     }
                 }
