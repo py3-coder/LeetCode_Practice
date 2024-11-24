@@ -11,12 +11,7 @@ class Solution {
                 small = Math.min(Math.abs(matrix[i][j]),small);
                 sum+=Math.abs(matrix[i][j]);
             }
-        }
-        if(cnt%2==0){
-            return sum;
-        }else{
-            sum-=2*small;
-            return sum;
-        }
+        }        
+        return (cnt%2==0)?sum : sum-2*small;
     }
 }
