@@ -3,7 +3,7 @@ class Solution {
         int i=0,j=0;
         while(i<str1.length() && j<str2.length()){
             char ch1 =str1.charAt(i),ch2=str2.charAt(j);
-            if( ch1 == ch2  || ch1+1==ch2 || ch1-25==ch2){
+            if((ch2-ch1 + 26) % 26 <= 1){
                 j++;
             }
             i++;
