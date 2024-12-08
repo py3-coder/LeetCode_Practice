@@ -13,24 +13,7 @@ class Solution {
         map =new HashMap<>();
         return solveMemoOptimised(0,triple,n);
     }
-    public static int solveMemoOptimised(int indx,List<Triple> tp,int n){
-        //Base Case::
-        if(indx == n) return 0;
-        if(map.containsKey(indx)){
-            return map.get(indx);
-        }
-        // Choices we have ::: pick or not pick
-        
-        int next =getNextIndx(tp,indx,n);
-        int pick =tp.get(indx).profit+solveMemoOptimised(next,tp,n);
-        
-        int notPick =solveMemoOptimised(indx+1,tp,n);
-        map.put(indx,Math.max(pick,notPick));
-        return Math.max(pick,notPick);
-        
-    }
-    // Previous Approch : getting tle ::
-     // public static int solveMemo(int indx,int lasttime,List<Triple> tp){
+    // public static int solveMemo(int indx,int lasttime,List<Triple> tp){
     //     //Base Case::
     //     if(indx == tp.size()) return 0;
     //     // Choices we have ::: pick or not pick
@@ -47,6 +30,22 @@ class Solution {
     //     map.put(key,Math.max(pick,notPick));
     //     return Math.max(pick,notPick);
     // }
+    public static int solveMemoOptimised(int indx,List<Triple> tp,int n){
+        //Base Case::
+        if(indx == n) return 0;
+        if(map.containsKey(indx)){
+            return map.get(indx);
+        }
+        // Choices we have ::: pick or not pick
+        
+        int next =getNextIndx(tp,indx,n);
+        int pick =tp.get(indx).profit+solveMemoOptimised(next,tp,n);
+        
+        int notPick =solveMemoOptimised(indx+1,tp,n);
+        map.put(indx,Math.max(pick,notPick));
+        return Math.max(pick,notPick);
+        
+    }
     public static int getNextIndx(List<Triple> tp,int indx,int n){
         int l=indx+1;
         int h=n-1;
