@@ -7,10 +7,7 @@ class Solution {
         StringBuilder op = new StringBuilder();
         int prev=-1;
         for(int i=25;i>=0;i--){
-            
-            if(op.length()>=s.length()){
-                break;
-            }
+
             if(freq[i]==0) continue;
          
             if(op.length()>0 && op.charAt(op.length()-1)!=(char)('a' + i) && prev!=-1){
@@ -28,7 +25,6 @@ class Solution {
             else if(freq[i]>repeatLimit){
                 freq[i]-=repeatLimit;
                 op.append(genrate(repeatLimit,(char)('a' + i)));
-                
                 prev=i;
             }
         }
